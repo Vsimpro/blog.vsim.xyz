@@ -15,6 +15,7 @@ header {
 div {
     padding-bottom: 10px;
     padding-left: 10px;
+    width: 90%;
 }
 
 .nav{
@@ -63,6 +64,7 @@ p {
 .activity {
     color: #8B959F;
 }
+
 .profile {
     color: #f0f7fd;
     padding-top: 20px;
@@ -72,9 +74,8 @@ p {
     background-color: #171B23;
     padding-top: 10px;
     padding-bottom: 15px;
-    margin: 15px;
     border-radius: 4px;
-    width: 750px;
+    width: 98%;
 }
 
 .tag {
@@ -88,7 +89,7 @@ p {
 
 .border-general {
     color: #8B959F;
-    width: 810px;
+    width: 120%;
     margin: 1%;
     padding: 2px;
     padding-bottom: 15px;
