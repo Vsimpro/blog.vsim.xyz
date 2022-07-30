@@ -18,8 +18,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify">
         <img src="/img/tv_head_vsim.png" width="60" alt="">
-        <a class="nav-link" href="/index.html"> <strong>home</strong> </a>
-        <a class="nav-link" href="https://vsim.xyz/index.html"> <strong>vsim.xyz</strong> </a>
+        <a class="nav-link" href="/index.html"> <strong>Home</strong> </a>
     </nav>
 </header>
 
@@ -27,10 +26,11 @@
     
     <div class="row">
         <div class="col-sm-3">
-
+            
         </div>
         <div class="col-sm-4" >
             <div class="border-general">
+                <h1> <img src="/img/book-xxl.png" width="24" height="24"alt="icon title"/> <a href="/index.html"> vsim.xyz </a>/ <strong><a href="/article/vulnerable-phishing.html"> blog</a></strong><span class="tag"> Public </span> </h1>
                 <div style="color:#cad7e4;">
                     <h1 style="width: 90%;border-bottom: 2px solid #171B23;color:#cad7e4;"> 
                         vulnerable-phishing, </h1>
@@ -44,24 +44,39 @@
                     <h2 style="width: 90%;border-bottom: 2px solid #171B23"> .. and then to the fun stuff! </h2>
                     <br> <br>
                     <h2> "You've violated the copyright rules" </h2>
-                    <p> is what I received on a message, on facebook. Now, while at face value it may seem plausible, the message itself gives it away pretty quickly. </p>
+                    <p> Now while at face value it may seem plausible, the message itself gives it away pretty quickly. </p>
                     <br>
-                    <img src="img/message.png" width="90%">
+                    <br><img src="img/message.png" width="100%"><br><br>
                     <p> I've censored some parts that could either be tied to me by the site owner. I've also censored the domain name. 
-                    <i> Noteworthy, </i>the domain ends with ".xyz". An interviewer told me once after seeing my site, 
-                    <br><span style="margin-left:2em"><quote>"That's got to be the first legitimate .xyz site I've ever seen."</quote></span><br>
+                    <i> Noteworthy, </i>the domain ends with <span style="font-weight: bold;color: #3999F4">".xyz"</span>. An interviewer told me once after seeing my site, 
+                    <br><span style="margin-left:2em"><span class="quote">"That's got to be the first legitimate .xyz site I've ever seen."</span></span><br>
                     What you'll also notice is the urgency of the first part of the message to get you to click the link. 
                     <br> So let's click it! Let's see what's behind it! 
-                    <img src="img/index.png" width="90%"> <br>
+                    <br><img src="img/index.png" width="100%"> <br><br>
                     To state the obvious; they're <i> impersonating </i>Meta and Instagram. These sites are often visually very, very close to the real thing
-                    But internally, they're built with simply functionality in mind. It's not uncommon to find a XSS vulnerability from a site like this.
-                    With usernames you can try to inject html and / or JavaScript into the name, as it's displaid on the site. Let's try that with the "strong" tag. 
-                    <img src="img/notallowed.png" width="90%">
-                    Suprisingly, they've actually thought about this, and do not allow the special characters. For some reason under 4 character names are not okay either.
+                    But internally, they're built with simply functionality in mind. It's not uncommon to find a <span style="font-weight: bold;color: #E24C27">XSS vulnerability</span> from a site like this.
+                    With usernames you can try to inject <span style="font-weight: bold;color: #238737">html</span> and / or <span style="font-weight: bold;color: #F0E15A">JavaScript</span> into the name, as it's often displayed somewhere on the site. Let's try that with the "strong" tag. 
+                    <br><img src="img/notallowed.png" width="100%"><br><br>
+                    Unsuprisingly, they've actually thought about this, and do not allow the special characters. For some reason under 4 character names are not okay either.
                     We have no other choice but to play along. 
-                    <img src="img/withoutinjection.png" width="90%"> <br>
-                    It's at this point I start to notice the site is possibly vulnerable. If you take a look at the site, and 
-                    </p>
+                    <br><img src="img/withoutinjection.png" width="100%"> <br><br>
+                    It's at this point I start to notice the site is possibly vulnerable. If you take a look at the site, you'll find that the username we gave is both
+                    displayed on the site and in the URL. That's interesting.. can we inject a new username into the site from the URL? If so, can we inject <span style="font-weight: bold;color: #238737">html</span> tags?
+                    <img src="img/findingVuln.png" width="100%"> <br><br>
+                    and yes indeed, would you look at that. They forgot to strip tags from the URL parameters, and as we give it the "strong" tag it gets passed 
+                    straigt into the site! You can see that the text <i> after </i> the username is bolded, due to the strong tag. This means you can embed your own <span style="font-weight: bold;color: #238737">html</span> into the site. Given this information, we could try to exploit it further 
+                    with <span style="font-weight: bold;color: #F0E15A">JavaScript</span> and "script" tags. But these guys run their site behind CloudFlares proxy, which automatically detects the tags and
+                    disallow the request. Weird to think that's what they did think of, but not sanitazing the URL parameters. <br>
+                    That's all we wanted to see though, as now we're absolutely certified to call them "skids" and report them to the authorities :)
+                    <br>
+                    <h1 style="width: 90%;border-top: 2px solid #171B23;color:#cad7e4;"> So what did we learn?</h1>
+                    <br> Don't be sloppy with your .php, CloudFlare wont be there to save you each time. When building complex applications, try to think of these questions:
+                    <ul>
+                        <li>"What information are we giving out?"</li>
+                        <li>"What information is the user giving us?"</li>
+                        <li>"What can be done with the information?"</li>
+                    </ul>
+                </p>
                 </div>
 
             </div>

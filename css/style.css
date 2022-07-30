@@ -49,6 +49,12 @@ p {
     margin-bottom: 1px;
 }
 
+.quote {
+    font-weight: bold;
+    color: #8B959F;
+    text-shadow: 2px 2px #20272D;;
+}
+
 .main {
     padding-left: 3%;
 }
@@ -122,9 +128,6 @@ p {
     color: #8B959F;
 }
 
-ul {
-    list-style: none;
-} 
 
 .dot {  
     background-color: #573D7D;
