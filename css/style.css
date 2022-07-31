@@ -3,13 +3,13 @@
 body {
     background-color: #0C1017;
     color: #f0f7fd;
-    margin-left: auto;
+    width: 98%;
     margin-right: auto;
 }
 
 header {
     background-color: #171B23;
-    width: 103%;
+    width: 102%;
 }
 
 div {
