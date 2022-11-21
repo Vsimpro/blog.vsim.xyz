@@ -44,7 +44,7 @@
                         I'm not sure why it is, but sometimes the database just spits out it's contents upon said request. This leaves the possibility of "dumping" the whole database open. Given the <span style="font-weight: bold;color: #E24C27">firebase</span> db's endpoint is <span style="color:#89c1f5;">{subdomain}.firebasio.com</span> it is possible to just iterate through all of the public databases and check their read access. So we did. </p>
                     <br>
                     <img src="img/scanner.png" width="100%">
-                    <p> Here's a snippet of the scraper codes basic idea. It goes through a list of subdomains and collects the return text as data. It is then logged elsewhere.</p>
+                    <p> Sieve of erasthothenes! </p>
                     <h2 style="width: 90%;border-bottom: 2px solid #171B23;">Statistics</h2>
                     <p> And they didn't look too good. Going through some 3000 subdomains around 400 were read access. Most of these were simply junk, null, or nothing uninteresting, but around 50 of them included personal data. Here's some example snippets;
                         <div class="code-box">
