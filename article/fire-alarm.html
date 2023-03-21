@@ -33,7 +33,7 @@
                 <p> The other day I found out <span style="font-weight: bold;color: #E24C27">firebase</span> databases are sometimes left "open", meaning they're set up so that anyone can read the data inside. Testing a database is quite easy, as you can retrieve data from the database via http endpoints. To test a <span style="font-weight: bold;color: #E24C27">"firebase"</span>, you need to add /.json at the end of the url. If the endpoint responds with something other than an error, for example "null", the database is open.
                     I'm not sure why it is, but sometimes the database just spits out it's contents upon said request. This leaves the possibility of "dumping" the whole database open. Given the <span style="font-weight: bold;color: #E24C27">firebase</span> db's endpoint is <span style="color:#89c1f5;">{subdomain}.firebasio.com</span> it is possible to just iterate through all of the public databases and check their read access. So we did. </p>
                 <br>
-                <img src="img/scanner.png" width="100%">
+                <img src="/article/img/scanner.png" width="100%">
 
                 <h2>Statistics</h2>
                 <p> And they didn't look too good. Going through some 3000 subdomains around 400 were read access. Most of these were simply junk, null, or nothing uninteresting, but around 50 of them included personal data. Here's some example snippets;

@@ -84,12 +84,12 @@
                 of the <span style="color:#89c1f5;">JWT</span>! Meaning we can change the "id" or "username" to send out requests for the API.
                 In this case it was changing the "id" and/or the "username" of the token into the accounts
                 you wanted to send a message as. </p>
-                <br><img style="user-select: none;" src="img/JustSkidding.png" width="50%"><br>
+                <br><img style="user-select: none;" src="/article/img/JustSkidding.png" width="50%"><br>
                 <p>These were publically avialabe from the API, where from path <strong>/api/collections/messages/records</strong> anyone was able to 
                 fetch all of the messages sent and their sender (containing ID and Username), or 
                 <strong>/api/collections/users/records</strong> where from anyone could see all of the registered users (and their IDs)
                 This is how people could find out Fireship's own accounts ID and send messages as him:
-                <br></p><img style="user-select: none;" src="img/forgor.png" width="50%"><br>
+                <br></p><img style="user-select: none;" src="/article/img/forgor.png" width="50%"><br>
                 
                 <h2>Accessing stuff cross accounts.</h2>
                 <p>That's all fine and dandy, but what if the developers actually implemented the <span style="color:#89c1f5;">JWT</span> as such that it can not be
@@ -101,13 +101,13 @@
                 the  <span style="color:#89c1f5;">JWT</span> in your Cookie- header. 
                 <br>
                 Let's take a look at this code I wrote. </p>
-                <br><img style="user-select: none;" src="img/code_i_wrote.png" width="50%"><br>
+                <br><img style="user-select: none;" src="/article/img/code_i_wrote.png" width="50%"><br>
                 <p>It will print out the ID of the user currently <u>logged in</u>, and then the ID of the user we want to send the message as.
                 Now let's take a look at the output:</p>
-                <br><img style="user-select: none;" src="img/output_code.png" width="40%"><br> 
+                <br><img style="user-select: none;" src="/article/img/output_code.png" width="40%"><br> 
                 <p>We can see the account the <span style="color:#89c1f5;">JWT</span> token belongs to (well you can't see the token, but you're going to have to trust me on this one) 
                 has different ID than the account we're asking the API to send the message as. Here's what it looks like from the point of view of the user: 
-                <br></p><img style="user-select: none;" src="img/pov_of_account.png" width="30%"><br>
+                <br></p><img style="user-select: none;" src="/article/img/pov_of_account.png" width="30%"><br>
                 <p>What we can derive from this is that the server, when accepting a message, does this: </p>
                 <ol> 
                     <li>It checks if you're logged in</li>
