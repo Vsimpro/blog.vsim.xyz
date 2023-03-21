@@ -421,7 +421,8 @@
     return_button.addEventListener("click",  toggleArticle);
 
     function toggleArticle() {
-        console.log(typeof article_toggle)
+        window.scrollTo(0, 0);
+
         if (!article_toggle) {
             hideElements(aside);
             hideElements(article);
