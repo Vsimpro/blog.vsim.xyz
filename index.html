@@ -76,13 +76,13 @@
                     <p>To actually gather points and stand a chance of winning the game, 
                     we'll first have to find out the right answers. As mentioned above the correct answers could just be 
                     parsed out from the static .js file. Let's do that with <span style="color:  #238737">Python.</span> </p>
-                    <img src="/article/img/haalaritparser.png">
+                    <br><img src="/article/img/haalaritparser.png"><br>
                     <p>After that, we'll have to somehow interact with the game. We can achieve that with <span style="color: #F0E15A">selenium</span>, 
                     and <span style="color:#89c1f5;">beautiful soup.</span> First we need to initialize the web driver for Selenium. Let's use Firefox.</p>
-                    <img src="/article/img/selenium_init.png">
+                    <br><img src="/article/img/selenium_init.png"><br>
                     <p>We can scrape the name of the image with beautiful soup and then compare it to the data we scraped off
-                    of the static js file. If no correct answer is found, we can throw an error.
-                    <img src="/article/img/pick_correct.png">
+                    of the static js file. If no correct answer is found, we can throw an error.<br> </p>
+                    <img src="/article/img/pick_correct.png"><br>
                     We can do this until we want to end the game, thats when we have to pick 3 times wrong.
                     Since this is the only way <span style="color: #E24C27">end the game</span>, we must ensure we begin "losing" right before the questions
                     run out -- if we don't, the website just breaks.
@@ -90,14 +90,14 @@
 
                     <h3> Strategy </h3>
                     <p>With said functionalities, what can and what should we do? We can see that the <span style="color: #F0E15A">leaderboard.</span>  is filled with 9 names, and if the same score occurs the later one gets the "spot". So we should then aim for 9 of the latest insertions of the highest score possible.
-                    We know there's (currently) only <span style="color:#89c1f5;">97 questions</span>, so we can only get the highscore of <span style="color:#89c1f5;">94</span> before having to "end the game" with 3 wrong answers. <br>
+                    We know there's (currently) only <span style="color:#89c1f5;">97 questions</span>, so we can only get the highscore of <span style="color:#89c1f5;">94</span> before having to "end the game" with 3 wrong answers. </p><br>
                     <img src="/article/img/play_quiz.png"><br>
                     We can also take a look at the scoreboard at any time by reloading the page and answering 3 wrong from the get go. 
                     So let's create a <span style="color: #E24C27">persistent bot</span>:
                     We look at the scoreboard -> if we see a name other than ours, 
                     we start a loop of 9 iterations to make sure we get all the <span style="color: #F0E15A">spots</span> -> each iterations plays the game and gets the highscore.
                     After that, we can sleep for a set amount of time before checking the board again.</p>
-                    <img src="/article/img/koth.png">
+                    <br><img src="/article/img/koth.png"><br>
 
                     <h3> Results </h3>
                     <p>So does it work?</p>
