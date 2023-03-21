@@ -8,68 +8,156 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify">
-        <img src="/img/tv_head_vsim.png" width="60" alt="">
-        <a class="nav-link" href="/index.html"> <strong>Home</strong> </a>
-    </nav>
-</header>
-
 <body>
-    
-    <div class="row">
-        <div class="col-sm-3">
-        </div>
-        <div class="col-sm-6" >
-            <div class="border-general">
-                <h1> <img src="/img/book-xxl.png" width="24" height="24"alt="icon title"/> <a href="/index.html"> blog.vsim.xyz </a>/ <strong><a href="/article/vulnerable-phishing.html"> blog</a></strong><span class="tag"> Public </span> </h1>
-                <div style="color:#cad7e4;">
-                    <h1 style="width: 90%;border-bottom: 2px solid #171B23;color:#cad7e4;"> 
-                        Horse-prowess, </h1>
-                    <p> Benchmarking the different browser engines, with <span style="color:#F0E15A;">JavaScript.</span> </p>
-                        <br>
-                    <h2> Premise </h2>
-                    <p> If something can be done on <span style="color:#F0E15A;">JavaScript,</span> it will be. But how well does it run? Whilst building applications on JavaScript I somehow realised the obvious, different browsers have <span style="color:#F0E15A;">JavaScript</span> runtimes.
-                        Well, okay, but how do they compare to something like <span style="font-weight: bold;color: #238737">Node?</span> And is it significant?
-                        Let's create a snippet of code to compare the bunch; </p>
-                        <br>
-                    <img src="img/ErastoThenes.png" width="100%">
-                    <h4> Sieve of Erastothenes! </h4>
-                    <p> My favourite way of finding prime numbers. (mileage may vary) <br> Flow of the code is really simple, start a timer, get all of the primenumbers under 1 million natural numbers, stop the timer and call it a day. We also want to print out the last Prime number to validate all of the runs give the same, correct results. </p>
-                    <p> I'll open the browsers and run the script above to find out the runtimes. To ease the margin of error a bit, let's run it five times and get their average. </p>
-                    <h2 style="width: 90%;border-bottom: 2px solid #171B23;">Statistics</h2>
-                    <p> Results are in. See them below;  </p>
-                    <img src="img/table.png" width="100%">
-                    <p> Unsuprisingly, looking at the average scores, there's not a lot of fluctuation. We can see two outliers from the 6 engines;
-                        <br> <span style="font-weight: bold;color:#89c1f5;">Internet Explorer</span>, which I tested to get a rough idea of the other results and
-                        <br> <span style="font-weight: bold;color: #E24C27">Mozilla's FireFox</span>, which beat the othres by a long shot. </p>
-                        <p> <br> Here's all of them arranged from slowest to fastest;</p> 
-                        <img src="img/Results.png" width="100%">
-                        <p> <span style="font-weight: bold;color: #238737">Node</span> being second to last! At first this surprised me. How could a runtime for JavaScript, ran on a desktop machine be <strong> slower </strong></p>
-                        <p> than all of the browser ones? </p>
-                        <p> However, it does make sense. <span style="font-weight: bold;color: #238737">Node.js</span> is not meant to be a responsive, light weight component of a web-browser. Browsers must run the code as fast as they can with minimal bloat, otherwise they will feel slow and unresponsive.</p>
-                        <p> The results show that  <span style="font-weight: bold;color:#89c1f5;">Internet Explorer</span> (unsuprisingly) is indeed ages slower than it's modern counterparts. The fact it is 3,700% slower than the fastest browser surely amounts for all of the memes made of <span style="font-weight: bold;color:#89c1f5;">IE's slowness.</span></p> 
-                    
-                    <h2 style="width: 90%;border-bottom: 2px solid #171B23;">Conclusions</h2>
-                    <p> Some more context could be helpful. The Mozilla browser and it's engine are actually quite fast. </p>
-                    <p> Same calculation on GoLang takes around 6 ms, so it's not actually meaningfully slower than Go. </p>
-                    <p> I will have to dig in more to get a better idea why the engines vary so much in speed, but this was an interesting test none the less. </p>
-                    <p>At the very least, we learned IE has long fell off, and Microsoft Edge is suprisingly competent alongside other modern browsers! </p> 
-                </div>
+    <div class="border-general">
+        <!-- NAVBAR -->
+        <header>
+            <div class="main">
+                <h1> 
+                    <a href="/"> blog.vsim.xyz </a>/ <a href="/article/horse-prowess.html">{this.blog}</a>
+                </h1>
             </div>
-            <footer>
-                <p>2022 - 2023 © Vsim. </p>
-            </footer>
-        </div>
-        <div class="col-sm-3">
-        </div>
+        </header>
+        <section>
+           <div>
+                <h1> Horse-prowess, </h1>
+                <p> Benchmarking the different browser engines, with <span style="color:#F0E15A;">JavaScript.</span> </p>
+                <br>
+                
+                <h2> Premise </h2>
+                <p> If something can be done on <span style="color:#F0E15A;">JavaScript,</span> it will be. But how well does it run? Whilst building applications on JavaScript I somehow realised the obvious, different browsers have <span style="color:#F0E15A;">JavaScript</span> runtimes.
+                Well, okay, but how do they compare to something like <span style="font-weight: bold;color: #238737">Node?</span> And is it significant?
+                Let's create a snippet of code to compare the bunch; </p>
+                <br>
+                <img src="img/ErastoThenes.png" width="70%">
+                
+                <h4> Sieve of Erastothenes! </h4>
+                <p> My favourite way of finding prime numbers. (mileage may vary) <br> Flow of the code is really simple, start a timer, get all of the primenumbers under 1 million natural numbers, stop the timer and call it a day. We also want to print out the last Prime number to validate all of the runs give the same, correct results. </p>
+                <p> I'll open the browsers and run the script above to find out the runtimes. To ease the margin of error a bit, let's run it five times and get their average. </p>
+                
+                <h2>Statistics</h2>
+                <p> Results are in. See them below;  </p>
+                <img src="img/table.png" width="100%">
+                <p> Unsuprisingly, looking at the average scores, there's not a lot of fluctuation. We can see two outliers from the 6 engines;
+                    <br> <span style="font-weight: bold;color:#89c1f5;">Internet Explorer</span>, which I tested to get a rough idea of the other results and
+                    <br> <span style="font-weight: bold;color: #E24C27">Mozilla's FireFox</span>, which beat the othres by a long shot. </p>
+                <p> <br> Here's all of them arranged from slowest to fastest;</p> 
+                <img src="img/Results.png" width="100%">
+                <p> <span style="font-weight: bold;color: #238737">Node</span> being second to last! At first this surprised me. How could a runtime for JavaScript, ran on a desktop machine be <strong> slower </strong></p>
+                <p> than all of the browser ones? </p>
+                <p> However, it does make sense. <span style="font-weight: bold;color: #238737">Node.js</span> is not meant to be a responsive, light weight component of a web-browser. Browsers must run the code as fast as they can with minimal bloat, otherwise they will feel slow and unresponsive.</p>
+                <p> The results show that  <span style="font-weight: bold;color:#89c1f5;">Internet Explorer</span> (unsuprisingly) is indeed ages slower than it's modern counterparts. The fact it is 3,700% slower than the fastest browser surely amounts for all of the memes made of <span style="font-weight: bold;color:#89c1f5;">IE's slowness.</span></p> 
+                    
+                <h2>Conclusions</h2>
+                <p> Some more context could be helpful. The Mozilla browser and it's engine are actually quite fast. </p>
+                <p> Same calculation on GoLang takes around 6 ms, so it's not actually meaningfully slower than Go. </p>
+                <p> I will have to dig in more to get a better idea why the engines vary so much in speed, but this was an interesting test none the less. </p>
+                <p>At the very least, we learned IE has long fell off, and Microsoft Edge is suprisingly competent alongside other modern browsers! </p> 
+            </div>
+        </section>
     </div>
+    
+    <footer>
+        <p>2022 - 2023 © Vsim. </p>
+    </footer>
 </body>
+<style>
+    @font-face { 
+        font-family: Monocraft;
+        src: url("/css/Monocraft.ttf");
+    }
+
+    * {
+        color: #F5F5F5;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        user-select: none;
+    }
+
+    body {
+        padding: 2%;
+        font-family: Monocraft;
+        background-color: #111111;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #666666;
+    }
+
+    img {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        user-select: none;
+    }
+
+    header {
+        padding-left: 1%;
+        text-align:  left;
+    }
+
+    strong {
+        color: #89c1f5;
+        font-weight: lighter;
+    }
+
+    section {
+        padding: 5%;
+    }
+
+    h2, h3, h4 {
+        width: auto;
+        padding: 1%;
+        margin-top: 5%;
+        border-left: 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    header, section {
+        border: 2px solid #F5F5F59f;
+    }
+
+    header, section, footer{
+        width: 50%;
+        margin-left: 25%; margin-right: 5%;
+    }
+
+    header, section, aside, article, footer {
+        float: left;
+    }
+
+    .code-box {
+        width: auto;
+        color: #f5f5f5;
+        text-align: left;
+        border-radius: 4px;
+        background-color: #171B23;
+    }
+
+    @media all and (orientation:portrait) {
+        * {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        img {
+            width: 90vw;
+        }
+
+        body {
+            width: 25%;
+        }
+
+        header, section, footer{
+            margin: 0;
+            width: 96.5vw;
+        }
+    }
+</style>

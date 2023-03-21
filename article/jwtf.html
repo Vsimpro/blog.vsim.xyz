@@ -8,159 +8,237 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="/css/style.css">
 </head>
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify">
-        <img src="/img/tv_head_vsim.png" width="60" alt="">
-        <a class="nav-link" href="/index.html"> <strong>Home</strong> </a>
-    </nav>
-</header>
-
 <body>
-    <div class="row">
-        <div style="user-select: none;" class="col-sm-3">
-        </div>
-        <div class="col-sm-6" >
-            <div class="border-general">
-                <h1> <img src="/img/book-xxl.png" width="24" height="24"alt="icon title"/> <a href="/index.html"> blog.vsim.xyz </a>/ <strong><a href="/article/vulnerable-phishing.html"> blog</a></strong><span class="tag"> Public </span> </h1>
-                <div style="color:#cad7e4;">
-                    <h1 style="width: 90%;border-bottom: 2px solid #171B23;color:#cad7e4;"> 
-                        JWTF - JSON Webtoken Fu- *forgery.. </h1>
-                    <p> Looking at how weak implementations can break API's </p>
-                        <br>
-                    <h2> Premise </h2>
-                    <p> Json Webtokens, or <span style="color:#89c1f5;">JWT</span>'s for short are widely used as authentication tokens for webapplications.
-                        As this <a href="https://thehackernews.com/2023/01/critical-security-flaw-found-in.html?m=1", target="blank_">article</a> 
-                        says, there are currently around 22,000+ open source projects using the JWT library.
-                        JWT tokens are easy to spot, as they're often found in cookies in base64 format, beginning with 
-                        <span style="font-weight: bold;color: #E24C27">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span> and continuing. 
-                        The structure of them is simple as they consist of three parts:
-                        <span style="font-weight: bold;color: #E24C27">head.</span><span style="font-weight: bold;color: #F0E15A">token.</span><span style="font-weight: bold;color: #238737">tail</span>
-                        <br>In the head is to be found the following data, <i>"alg": (often) "HS256"</i> and <i>"typ": "JWT"</i>. The algorythm part tells the server 
-                        what algorythm was used with <i>the secret key</i> to create a <strong>hash</strong> of the <span style="font-weight: bold;color: #E24C27">head</span>
-                        and the <span style="font-weight: bold;color: #F0E15A">token</span>. This hash is then used as the <span style="font-weight: bold;color: #238737">tail</span>, which can be then used to check the 
-                        integrity of the JWT on the backend. </p>
-
-
-                    <br>
-                    <h2 style="width: 90%;border-bottom: 2px solid #171B23;">The trickery</h2>
-                    <p> Ok, ok, I get it, you didn't come here to be lectured on how the authentication tokens work. 
-                        I'm going to go through two techniques that an adversary can use to break an API that has been written haphazardly, loosely, you know.
-                    </p>
-                        <ul>
-                            <li>
-                               <strong> Crafting an authentication token. </strong>
-                            </li>
-                            <li>
-                                <strong> Using any valid token to access data. </strong>
-                             </li>
-                        </ul>
-                        <p> To drive the point further that these are vulnerabilities plaguing modern webapplications we're going to use 
-                            <a target="_blank" href="https://youtu.be/gUYBFDPZ5qk">Fireship's chat application</a> as an example. When the app was online, Fireship had 
-                            a video titled "I built a $5 chat app with Pocketbase & Svelte. Will it scale?" and the chat application has since 
-                            been taken down, so there is no harm to be made here by revealing the bugs.  </p>
-
-
-                    <h2 style="width: 90%;border-bottom: 2px solid #171B23;">Crafting tokens.</h2>
-                    <p> If you didn't sleep on the intro to this article, you know <span style="color:#89c1f5;">JWT</span>'s 
-                        themselves contain data on their verification method. The <span style="font-weight: bold;color: #E24C27">head</span>
-                        tells the server which algo has been used to create the hash for the <span style="font-weight: bold;color: #238737">tail</span> 
-                        part of the token, so we know how to validate the integrity of the token. If the data inside the token has been tampered with, the hash (tail)
-                        will not match the one the server will be able to create with the <i>secret key</i>. 
-                        <br>
-                        In this chat application, the data is as follows:
-                        <div class="code-box">
-                            { "ban":false,<br>
-                            "collectionId":"_pb_users_auth_",<br>
-                            "collectionName":"users",<br>
-                            "created":"2022-12-19 21:23:56.343Z", <br>
-                            "email":"",<br>
-                            "emailVisibility":false,<br>
-                            "id":"na0pwsw0b41apj3",<br>
-                            "updated":"2022-12-19 21:23:56.343Z",<br>
-                            "username":"vs1m",<br>
-                            "verified":false,<br>
-                            "expand":{}} }<br>
-                        </div>
-                        And tampering this results as a <u class="code-box">403</u> from the API. So how can we forge the <span style="color:#89c1f5;">JWT</span>?
-                        We can take a look at the head which reads, <span style="font-weight: bold;color: #E24C27">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span> 
-                        or base64 decoded <strong> { "alg": "HS256", "typ": "JWT" } </strong>. 
-                        <br>If we simply change the "alg" to "none" --
-                        and get this -- it actually does work, the server will <i> not </i> check the <span style="font-weight: bold;color: #238737">tail</span> 
-                        of the <span style="color:#89c1f5;">JWT</span>! Meaning we can change the "id" or "username" to send out requests for the API.
-                        In this case it was changing the "id" and/or the "username" of the token into the accounts
-                        you wanted to send a message as. 
-                        <br><img style="user-select: none;" src="img/JustSkidding.png" width="90%"><br>
-                        These were publically avialabe from the API, where from path <strong>/api/collections/messages/records</strong> anyone was able to 
-                        fetch all of the messages sent and their sender (containing ID and Username), or 
-                        <strong>/api/collections/users/records</strong> where from anyone could see all of the registered users (and their IDs)
-                        This is how people could find out Fireship's own accounts ID and send messages as him:
-                        <br><img style="user-select: none;" src="img/forgor.png" width="70%"><br>
-
-                    <h2 style="width: 90%;border-bottom: 2px solid #171B23;">Accessing stuff cross accounts.</h2>
-                        That's all fine and dandy, but what if the developers actually implemented the <span style="color:#89c1f5;">JWT</span> as such that it can not be
-                        forged artifically by the user? Is there any other way to access other users data, or in this case, use 
-                        other peoples accounts to send messages..? <br>
-                        <strong>Of course!</strong> <br>
-                        The Chat Applications API works this way: You <i>POST</i> request the path <strong>/api/collections/messages/records</strong>
-                        with a JSON payload consisting of a message and the user ID. Noteworthy is that you can not do this without 
-                        the  <span style="color:#89c1f5;">JWT</span> in your Cookie- header. 
-                        <br>
-                        Let's take a look at this code I wrote. 
-                        <br> <img style="user-select: none;" src="img/code_i_wrote.png" width="90%"><br>
-                        It will print out the ID of the user currently <u>logged in</u>, and then the ID of the user we want to send the message as.
-                        Now let's take a look at the output:
-                        <br><img style="user-select: none;" src="img/output_code.png" width="90%"><br> 
-                        We can see the account the <span style="color:#89c1f5;">JWT</span> token belongs to (well you can't see the token, but you're going to have to trust me on this one) 
-                        has different ID than the account we're asking the API to send the message as. Here's what it looks like from the point of view of the user: 
-                        <br><img style="user-select: none;" src="img/pov_of_account.png" width="50%"><br>
-                        What we can derive from this is that the server, when accepting a message, does this:
-                        </p>
-                        <ol> 
-                            <li>It checks if you're logged in</li>
-                            <li>It looks at what your ID is</li>
-                            <li>It writes a new message according to the ID given.</li>
-                        </ol>
-                        <p>
-                        The problem is that the server does not verify 
-                        <strong>your ID in the <span style="color:#89c1f5;">JWT</span>  is the same as the one you're sending the message as. </strong>
-                        It only checks if a token is present, and if it's valid it accepts your request.
-                        There is no way to validate the "ID" field on the JSON of the POST request, so it just has to trust you've put in the correct one.
-                        On this simple chat app it only means impersonation, but on other applications it could mean leakage of personal information or
-                        even loss of accounts as you're able to tamper with the passwords and other personal data of users without being logged in as them.
-                        </p>
-                        <h2 style="width: 90%;border-bottom: 2px solid #171B23;">Conclusions</h2>
-                        <p>
-                            As per usual, a few tips for the developer.
-                            <span style="font-weight: bold;color: #F0E15A">Never trust the user.</span> When you create an <span style="font-weight: bold;color: #238737">API</span> 
-                            that tells the server which account is 
-                            sending the data, or requesting it, do not use parameters you can't verify. <span style="color:#89c1f5;">JWT</span> is meant to be read, you can
-                            base64 decode the token and read the data from there: if it's crafted correctly, 
-                            it should contain who is sending the data. <br>
-                            Don't (just) trust the <span style="font-weight: bold;color: #F0E15A">token</span> either! If you check
-                            the integrity of the token, you can implement the check so that it does it <i>regardless</i> of what's 
-                            said in the <span style="font-weight: bold;color: #E24C27">head</span> of the <span style="color:#89c1f5;">JWT</span>.
-                            You know you use HS256 -- you don't need to check the token for this every time a request comes in ;).
-                            <br><br>
-
-                            And that's about it. Thanks for reading, and I hope you learned something!<br>
-                            -Vs1m.
-                        </p>
-                </div>
-
+    <div class="border-general">
+        <!-- NAVBAR -->
+        <header>
+            <div class="main">
+                <h1> 
+                    <a href="/"> blog.vsim.xyz </a>/ <a href="/article/jwtf.html">{this.blog}</a>
+                </h1>
             </div>
-            <footer>
-                <p>2022 - 2023 © Vsim. </p>
-            </footer>
-        </div>
-        <div style="user-select: none;" class="col-sm-3">
-        </div>
+        </header>
+        <section>
+            <div>
+                <h1> 
+                    JWTF - JSON Webtoken Fu- *forgery.. </h1>
+                <p> Looking at how weak implementations can break API's </p>
+                <br>
+                <h2> Premise </h2>
+                <p> Json Webtokens, or <span style="color:#89c1f5;">JWT</span>'s for short are widely used as authentication tokens for webapplications.
+                As this <a href="https://thehackernews.com/2023/01/critical-security-flaw-found-in.html?m=1", target="blank_">article</a> 
+                says, there are currently around 22,000+ open source projects using the JWT library.
+                JWT tokens are easy to spot, as they're often found in cookies in base64 format, beginning with 
+                <span style="font-weight: bold;color: #E24C27">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span> and continuing. 
+                The structure of them is simple as they consist of three parts:
+                <span style="font-weight: bold;color: #E24C27">head.</span><span style="font-weight: bold;color: #F0E15A">token.</span><span style="font-weight: bold;color: #238737">tail</span>
+                <br>In the head is to be found the following data, <i>"alg": (often) "HS256"</i> and <i>"typ": "JWT"</i>. The algorythm part tells the server 
+                what algorythm was used with <i>the secret key</i> to create a <strong>hash</strong> of the <span style="font-weight: bold;color: #E24C27">head</span>
+                and the <span style="font-weight: bold;color: #F0E15A">token</span>. This hash is then used as the <span style="font-weight: bold;color: #238737">tail</span>, which can be then used to check the 
+                integrity of the JWT on the backend. </p>
+                <br>
+                
+                <h2>The trickery</h2>
+                <p> Ok, ok, I get it, you didn't come here to be lectured on how the authentication tokens work. 
+                I'm going to go through two techniques that an adversary can use to break an API that has been written haphazardly, loosely, you know. </p>
+                <ul>
+                    <li>
+                        <strong> Crafting an authentication token. </strong>
+                    </li>
+                    <li>
+                        <strong> Using any valid token to access data. </strong>
+                    </li>    
+                </ul>
+                <p> To drive the point further that these are vulnerabilities plaguing modern webapplications we're going to use 
+                <a target="_blank" href="https://youtu.be/gUYBFDPZ5qk">Fireship's chat application</a> as an example. When the app was online, Fireship had 
+                a video titled "I built a $5 chat app with Pocketbase & Svelte. Will it scale?" and the chat application has since 
+                been taken down, so there is no harm to be made here by revealing the bugs.</p>
+
+                <h2>Crafting tokens.</h2>
+                <p> If you didn't sleep on the intro to this article, you know <span style="color:#89c1f5;">JWT</span>'s 
+                    themselves contain data on their verification method. The <span style="font-weight: bold;color: #E24C27">head</span>
+                    tells the server which algo has been used to create the hash for the <span style="font-weight: bold;color: #238737">tail</span> 
+                    part of the token, so we know how to validate the integrity of the token. If the data inside the token has been tampered with, the hash (tail)
+                    will not match the one the server will be able to create with the <i>secret key</i>.  </p>
+                <br>
+                    <p>In this chat application, the data is as follows:
+                    <div class="code-box">
+                                { "ban":false,<br>
+                                "collectionId":"_pb_users_auth_",<br>
+                                "collectionName":"users",<br>
+                                "created":"2022-12-19 21:23:56.343Z", <br>
+                                "email":"",<br>
+                                "emailVisibility":false,<br>
+                                "id":"na0pwsw0b41apj3",<br>
+                                "updated":"2022-12-19 21:23:56.343Z",<br>
+                                "username":"vs1m",<br>
+                                "verified":false,<br>
+                                "expand":{}} }<br>
+                </div></p><p>
+                And tampering this results as a <u class="code-box">403</u> from the API. So how can we forge the <span style="color:#89c1f5;">JWT</span>?
+                We can take a look at the head which reads, <span style="font-weight: bold;color: #E24C27">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span> 
+                or base64 decoded <strong> { "alg": "HS256", "typ": "JWT" } </strong>. 
+                <br>If we simply change the "alg" to "none" --
+                and get this -- it actually does work, the server will <i> not </i> check the <span style="font-weight: bold;color: #238737">tail</span> 
+                of the <span style="color:#89c1f5;">JWT</span>! Meaning we can change the "id" or "username" to send out requests for the API.
+                In this case it was changing the "id" and/or the "username" of the token into the accounts
+                you wanted to send a message as. </p>
+                <br><img style="user-select: none;" src="img/JustSkidding.png" width="50%"><br>
+                <p>These were publically avialabe from the API, where from path <strong>/api/collections/messages/records</strong> anyone was able to 
+                fetch all of the messages sent and their sender (containing ID and Username), or 
+                <strong>/api/collections/users/records</strong> where from anyone could see all of the registered users (and their IDs)
+                This is how people could find out Fireship's own accounts ID and send messages as him:
+                <br></p><img style="user-select: none;" src="img/forgor.png" width="50%"><br>
+                
+                <h2>Accessing stuff cross accounts.</h2>
+                <p>That's all fine and dandy, but what if the developers actually implemented the <span style="color:#89c1f5;">JWT</span> as such that it can not be
+                forged artifically by the user? Is there any other way to access other users data, or in this case, use 
+                other peoples accounts to send messages..? <br>
+                <strong>Of course!</strong> <br>
+                The Chat Applications API works this way: You <i>POST</i> request the path <strong>/api/collections/messages/records</strong>
+                with a JSON payload consisting of a message and the user ID. Noteworthy is that you can not do this without 
+                the  <span style="color:#89c1f5;">JWT</span> in your Cookie- header. 
+                <br>
+                Let's take a look at this code I wrote. </p>
+                <br><img style="user-select: none;" src="img/code_i_wrote.png" width="50%"><br>
+                <p>It will print out the ID of the user currently <u>logged in</u>, and then the ID of the user we want to send the message as.
+                Now let's take a look at the output:</p>
+                <br><img style="user-select: none;" src="img/output_code.png" width="40%"><br> 
+                <p>We can see the account the <span style="color:#89c1f5;">JWT</span> token belongs to (well you can't see the token, but you're going to have to trust me on this one) 
+                has different ID than the account we're asking the API to send the message as. Here's what it looks like from the point of view of the user: 
+                <br></p><img style="user-select: none;" src="img/pov_of_account.png" width="30%"><br>
+                <p>What we can derive from this is that the server, when accepting a message, does this: </p>
+                <ol> 
+                    <li>It checks if you're logged in</li>
+                    <li>It looks at what your ID is</li>
+                    <li>It writes a new message according to the ID given.</li>
+                </ol>
+                <p>The problem is that the server does not verify 
+                <strong>your ID in the <span style="color:#89c1f5;">JWT</span>  is the same as the one you're sending the message as. </strong>
+                It only checks if a token is present, and if it's valid it accepts your request.
+                There is no way to validate the "ID" field on the JSON of the POST request, so it just has to trust you've put in the correct one.
+                On this simple chat app it only means impersonation, but on other applications it could mean leakage of personal information or
+                even loss of accounts as you're able to tamper with the passwords and other personal data of users without being logged in as them.</p>
+                
+                <h2>Conclusions</h2>
+                <p> Development wise:
+                <span style="color: #F0E15A">Never trust the user.</span> When you create an <span style="font-weight: bold;color: #238737">API</span> 
+                that tells the server which account is 
+                sending the data, or requesting it, do not use parameters you can't verify. <span style="color:#89c1f5;">JWT</span> is meant to be read, you can
+                base64 decode the token and read the data from there: if it's crafted correctly, 
+                it should contain who is sending the data. <br>
+                Don't (just) trust the <span style="color: #F0E15A">token</span> either! If you check
+                the integrity of the token, you can implement the check so that it does it <i>regardless</i> of what's 
+                said in the <span style="color: #E24C27">head</span> of the <span style="color:#89c1f5;">JWT</span>.
+                You know you use HS256 -- you don't need to check the token for this every time a request comes in ;).
+                <br><br>
+
+                And that's about it. Thanks for reading, and I hope you learned something!<br>
+                -Vs1m.</p>
+            </div>
+        </section>
     </div>
+    
+    <footer>
+        <p>2022 - 2023 © Vsim. </p>
+     </footer>
 </body>
+<style>
+    @font-face { 
+        font-family: Monocraft;
+        src: url("/css/Monocraft.ttf");
+    }
+
+    * {
+        color: #F5F5F5;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        user-select: none;
+    }
+
+    body {
+        padding: 2%;
+        font-family: Monocraft;
+        background-color: #111111;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #666666;
+    }
+
+    img {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        user-select: none;
+    }
+
+    header {
+        padding-left: 1%;
+        text-align:  left;
+    }
+
+    strong {
+        color: #89c1f5;
+        font-weight: lighter;
+    }
+
+    section {
+        padding: 5%;
+    }
+
+    h2, h3, h4 {
+        width: auto;
+        padding: 1%;
+        margin-top: 5%;
+        border-left: 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    header, section {
+        border: 2px solid #F5F5F59f;
+    }
+
+    header, section, footer{
+        width: 50%;
+        margin-left: 25%; margin-right: 5%;
+    }
+
+    header, section, aside, article, footer {
+        float: left;
+    }
+
+    .code-box {
+        width: auto;
+        color: #f5f5f5;
+        text-align: left;
+        border-radius: 4px;
+        background-color: #171B23;
+    }
+
+    @media all and (orientation:portrait) {
+        * {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        img {
+            width: 90vw;
+        }
+
+        body {
+            width: 25%;
+        }
+
+        header, section, footer{
+            margin: 0;
+            width: 96.5vw;
+        }
+    }
+</style>

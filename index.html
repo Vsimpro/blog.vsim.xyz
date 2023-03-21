@@ -8,111 +8,473 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="stylesheet" href="css/style.css">
 </head>
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
-        <img src="/img/tv_head_vsim.png" width="60" alt="">
-        <a class="nav-link" href="/index.html"> <strong>Home</strong> </a>
-    </nav>
-</header>
-
 <body>
-
-    <div class="row">
-        <div style="user-select: none;" class="col-sm-2">
+    <!-- NAVBAR -->
+    <header>
+        <div class="main">
+            <h1 style="font-weight: lighter;"> 
+                <a href="https://vsim.xyz"> vsim.xyz </a>/ <a href="/index.html" style="color:#89c1f5;"> blog</a>
+                <span id="return_button" hidden> return; </span>
+            </h1>
         </div>
-        <div class="col-sm-8">
-            <div class="main">
-            <h1 style="padding-bottom: 1%;"> <img src="/img/book-xxl.png" width="24" height="24"alt="icon title"/> <a href="https://vsim.xyz"> vsim.xyz </a>/ <strong><a href="/index.html"> blog</a></strong></h1>
-            <div style="user-select: none;" class="border-general">
-               <p class="profile"> <strong>Hi there, I'm Ville -- aka Vsim 👋 </strong></p>
-               <div class="code-box">
-                   <span style="color:#E24C27;"> public class </span><span style="color:#F0E15A;">Blog </span>{ <br>
-                        <span style="margin-left:2em">this.is = <span style="color:#89c1f5;">"a weblog of mine";</span></span> <br>
-                        <span style="margin-left:2em">this.isMeantToShowcase = <span style="color:#89c1f5;">"my findings, ideas, and projects"</span>;</span><br>
-                        <span style="margin-left:2em">this.MainWebsite = <span style="color:#89c1f5;">"<a href="https://vsim.xyz">vsim.xyz</a>"</span></span>
-                        <br>}
-               </div>
+    </header>
+
+    <!-- ABOUT -->
+    <aside>
+        <div>
+            <p style="font-size: xx-large;color: #2edf51"> About </p>
+            <p> Welcome to my weblog. Here you'll find writings regarding some of my projects, findings and ideas. Enjoy! </p>
+            <button><a href="https://vsim.xyz" style="color: #030327;"> my homepage </a></button>
+            <p> All of the source is avialable on GitHub: 
+                <a href="https://github.com/Vsimpro/", target="_blank"> Vsimpro </a> </p>
+        </div>
+    </aside>
+
+    <!-- SPOTLIGHT -->
+    <section id="spotlight" class="spotlight">
+        <h2 id="blog_tag" style="color:#89c1f5;"> Latest blog </h2>
+        <div class="spacer"></div>
+            <div class="description">
+                <p> Bot-chelors_degree </p>
+                <p> Creating a sophisticated bot for a game nobody knows about.  </p>
+                <p style="color: #E24C27"> Python </p>    
             </div>
-            <p style="user-select: none;" style="padding-top: 5%;"><img src="/img/tack.png" width="16" height="24"alt="icon title" />  Pinned: </p>
-            <div class="col-sm-4">
-                <div class="border-link">
-                    <a class="button" href="/article/jwtf.html"> <span class="pseudolink"> J-W-T-F</span>
-                            <span class="tag"> Public </span>
-                            <br>
-                            <p> Looking at the dangers of misused JWT's </p>
-                            <br>
-                            <span class="dot"></span> CyberSec
-                        </a>
-                    </div>
-                </div>
-            <div style="user-select: none;" class="col-sm-4">
-                <div class="border-link">
-                    <a class="button" href="/article/horse-prowess.html"> <span class="pseudolink"> Horse-prowess </span>
-                            <span class="tag"> Public </span>
-                            <br>
-                            <p> Racing browsers and their engines against eachother. </p>
-                            <br>
-                            <span class="dot_green"></span> Development
-                        </a>
-                    </div>
-                </div>
-                <div style="user-select: none;" class="col-sm-4">
-                    <div class="border-link">
-                        <a class="button" href="/article/fire-alarm.html"> <span class="pseudolink"> fire-alarm </span>
-                                <span class="tag"> Public </span>
-                                <br>
-                                <p> Finding open databases in the wild </p>
-                                <br>
-                                <span class="dot"></span> CyberSec
-                            </a>
-                        </div>
-                    </div>
-            <div style="user-select: none;" class="row">
-                <div class="col-sm-4">
-                    <div class="border-link">
-                        <a class="button" href="/article/vulnerable-phishing.html"> <span class="pseudolink"> vulnerable-phishing </span>
-                                <span class="tag"> Public </span>
-                                <br>
-                                <p> I explore a poorly made, vulnerable phishing site </p>
-                                <br>
-                                <span class="dot"></span> CyberSec
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                               
-                    <p style="user-select: none;" style="padding-top: 5%;"> <img src="/img/books-xxl.png" width="24" height="24"alt="icon title"/> Activity </p>
-                    <div style="user-select: none;" class="activity"> <br>
+            <!-- SPOTLIGHT BLOG -->
+            <!-- TODO: Add colour and images. -->
+            <div id="blog" hidden>
+                <h1>Bot-chelors_degree</h1>
+                <p> Premise: <br> Recently I came across an ad, that according to facebook had only yet been shown to 2k people. The advertisement presented a game, 
+                a picture-based challenge that required players to identify the field of study or degree represented by a student wearing their <span style="color:#89c1f5;">student-overalls</span>. 
+                Student-overalls are a huge thing amongst Universities of Finland, and the concept is that each field of study gets their own kind with varying colours. 
+                <br>While the game is initially entertaining, it soon revealed several <span style="color: #E24C27">flaws</span> 
+                that allowed players to <span style="color: #F0E15A">cheat and potentially break the game.</span> It seemed as though it was a small, rushed hobby project. 
+                This article explores how I, with great care and attention to detail, <span style="color: #E24C27">developed a bot</span> to dominate the highscores for this unheard game about .. Finnish student overalls. </p>
+    
+                <h3> Overview of the game </h3>
+                <p> The game presents players a picture of a student wearing overalls and four possible options, 
+                    each corresponding to a degree or field of study. The players goal is to correctly guess which option 
+                    corresponds to the overalls. Players are allowed three incorrect guesses, with each guess earning them 
+                    <span style="color: #238737">100 points</span>. The game ends when the player has made three incorrect guesses.
+                    At the end of the game, players with the most points are displayed on a 
+                    <span style="color: #F0E15A">leaderboard.</span> <br>
 
-                        <span style="border-left: 3px solid #20272D;"></span>
-                        <span style="margin-left:1em">"JWTF" - Jan 11</span>
+                    So what's wrong? Well two things:
+                    <ul>                        
+                        <li style="color:#89c1f5;">
+                            * The images displayed are named according to what field of study they represent. This means anyone who knows how to open "inspect elements" can simply just look at the picture name and deduct the right answer.
+                        </li>
                         <br>
+                        <li style="color:#89c1f5;">
+                            * The correct answers you can also find from the /static/.js file. We can use Python for example to parse the correct answers for the correct pictures. 
+                        </li>    
+                    </ul> </p>
+                
+                    <h3> Overview of the bot </h3>
+                    <p>So I built a <span style="color: #E24C27">bot.</span> Let's look at it!</p>
+                    <p>To actually gather points and stand a chance of winning the game, 
+                    we'll first have to find out the right answers. As mentioned above the correct answers could just be 
+                    parsed out from the static .js file. Let's do that with <span style="color:  #238737">Python.</span> </p>
+                    <img src="/article/img/haalaritparser.png">
+                    <p>After that, we'll have to somehow interact with the game. We can achieve that with <span style="color: #F0E15A">selenium</span>, 
+                    and <span style="color:#89c1f5;">beautiful soup.</span> First we need to initialize the web driver for Selenium. Let's use Firefox.</p>
+                    <img src="/article/img/selenium_init.png">
+                    <p>We can scrape the name of the image with beautiful soup and then compare it to the data we scraped off
+                    of the static js file. If no correct answer is found, we can throw an error.
+                    <img src="/article/img/pick_correct.png">
+                    We can do this until we want to end the game, thats when we have to pick 3 times wrong.
+                    Since this is the only way <span style="color: #E24C27">end the game</span>, we must ensure we begin "losing" right before the questions
+                    run out -- if we don't, the website just breaks.
+                    Once we recognize the end screen text, we can put in our name and click submit.</p>
 
-                        <span style="border-left: 3px solid #20272D;"></span>
-                        <span style="margin-left:1em">"Horse Prowess" - Nov 21</span>
-                        <br>
+                    <h3> Strategy </h3>
+                    <p>With said functionalities, what can and what should we do? We can see that the <span style="color: #F0E15A">leaderboard.</span>  is filled with 9 names, and if the same score occurs the later one gets the "spot". So we should then aim for 9 of the latest insertions of the highest score possible.
+                    We know there's (currently) only <span style="color:#89c1f5;">97 questions</span>, so we can only get the highscore of <span style="color:#89c1f5;">94</span> before having to "end the game" with 3 wrong answers. <br>
+                    <img src="/article/img/play_quiz.png"><br>
+                    We can also take a look at the scoreboard at any time by reloading the page and answering 3 wrong from the get go. 
+                    So let's create a <span style="color: #E24C27">persistent bot</span>:
+                    We look at the scoreboard -> if we see a name other than ours, 
+                    we start a loop of 9 iterations to make sure we get all the <span style="color: #F0E15A">spots</span> -> each iterations plays the game and gets the highscore.
+                    After that, we can sleep for a set amount of time before checking the board again.</p>
+                    <img src="/article/img/koth.png">
 
-                        <span style="border-left: 3px solid #20272D;"></span>
-                        <span style="margin-left:1em">"Fire Alarm" - Oct 21</span>
-                        <br>
+                    <h3> Results </h3>
+                    <p>So does it work?</p>
+                    <img src="/article/img/vs1m_nmbr_1.png">
+                    <p>Yeah! We can leave it running and it will fill up us for all of the spots on the <span style="color: #F0E15A">leaderboard.</span> 
+                    As the frontend takes around <span style="color: #E24C27">20-30ms</span> to load new elements, we can only reliably answer questions every 
+                    <span style="color: #E24C27">50 milliseconds.</span> This results in a round time of 55 - 75 seconds total. Like 3,5 röntgen, 
+                    it's not great but not terrible. Technically <span style="color:  #238737">we could now leave it on loop,</span> and enjoy our "reign" 
+                    on top of the game -- that has enjoyed the exposure of just around 2 thousand people.. </p>
 
-                        </span>
-                    </div>
-                    <footer>
-                        <p>2022 - 2023 © Vsim. </p>
-                    </footer>
-                </div>
+                    <h3> Conclusions </h3>
+                    <p>The game presents a fun challenge for players to test their knowledge of different student overalls.
+                    However, the game is <i>flawed</i> in that it is incredibly easy to cheat and bot the game.  
+                    The bot <span style="color:#89c1f5;">developed</span> in this article demonstrated how these flaws could be exploited to 
+                    consistently achieve a high score and dominate the <span style="color: #F0E15A">leaderboard.</span> 
+                    While the bots strategy is successful in achieving the <span style="color: #F0E15A">highest score</span> and occupying all the spots 
+                    on the leaderboard, it completely undermines the purpose of the game and deprives other players of the 
+                    opportunity to compete fairly. While it's <span style="color: #238737">tempting to exploit games</span>, 
+                    <span style="color: #E24C27">it ultimately damages the fun</span> of the game for everyone else.</span>
+                    Games should be designed in a way that tries to prevent this exploiting and cheating, 
+                    and this article demonstrates some ways a michevious player could "exploit the system." 
+                    <br><br>There we go! The source for the <span style="color: #E24C27">bot</span> can be found here: <a href=""> </a> 
+                    Thanks for reading, and I hope you learned something!<br>
+                    -Vs1m.</p>
+    </section>
+
+    <!-- Other blogs. -->
+    <article>
+        <div class="spacer"></div>
+            <div class="description">
+                <a class="button" href="/article/jwtf.html">
+                    <p> J-W-T-F </p>
+                    <p> Looking at the dangers of misimplemented JWT's </p>
+                    <p style="color: #F0E15A"> CyberSec </p>
+                </a> 
             </div>
+    </article>
+    <article>
+        <h4 class="earlier_label"> Earlier work </h4>
+        <div class="spacer"></div>
+            <div class="description">
+                <a class="button" href="/article/horse-prowess.html"> 
+                    <p> Horse-prowess </p>
+                    <p> Racing browsers and their engines against eachother. </p>
+                    <p style="color:#89c1f5;"> Development </p>
+                </a> 
+            </div>                            
+    </article>
+    <article>
+        <div class="spacer"></div>
+            <div class="description">
+                <a class="button" href="/article/fire-alarm.html"> 
+                    <p> fire-alarm </p>
+                    <p> Finding open Firebase databases in the wild </p>
+                    <p style="color: #F0E15A"> CyberSec </p>
+                </a>
+            </div>
+    </article>
+    <article>
+        <div class="spacer"></div>
+            <a class="button" href="#">
+                <p> # TODO: Add a link to previous blogs here. </p>
+            </a>
         </div>
-        <div class="col-sm-2">
-        </div>
-    </div>
+    </article>
+    <footer>
+        <p> 2023 © Vs1m<span class="flicker">_</span></p> 
+    </footer>
 </body>
+<style>
+    @font-face { 
+        font-family: Monocraft;
+        src: url("/css/Monocraft.ttf");
+    }
+
+    * {
+        color: #F5F5F5;
+        user-select: none;
+        overflow: hidden;
+        font-size: x-large;
+        box-sizing: border-box;
+    }
+
+    body {
+        padding: 2%;
+        font-family: Monocraft;
+        background-color: #111111;
+    }
+
+    aside {
+        width: 25%;
+        height: 40vw;
+    }
+
+    article {
+        width: 18.75%;
+        height: 15vw;    
+    }
+
+    #return_button {
+        margin-left: 1%; margin-right: 1%;
+        padding-left: 1%; padding-right: 1%;
+    }
+
+    #return_button:hover {
+        border: 1px solid #f5f5f59f;
+        border-bottom: 1px solid #f5f5f59f;
+    }
+
+    article:hover, .spotlight:hover, .spotlight:hover #blog_tag, #return_button:hover {
+        cursor: pointer;
+        background-color: #222222;
+    }
+
+    a {
+        text-decoration: none;
+        font-family: Monocraft;
+    }
+
+    a:hover {
+        color: #666666;
+    }
+
+    h2 {
+        margin-top: -5.6vw;
+        margin-left: 20%;
+        background-color: #111111;
+        padding-left: 2%; padding-right: 2%;
+    }
+
+    h3 {
+        padding-left: 1%;
+        border-left:   2px solid #F5F5F5;
+        border-bottom: 2px solid #F5F5F5;
+    }
+
+    h4 {
+        padding: 1%;
+        margin-left: 9%;
+        margin-top: -2.9%;
+        font-weight: lighter;
+        background-color: #111111;
+    }
+
+    h2, h4 {
+        position: fixed;
+        border: 2px solid #F5F5F59f;
+    }
+
+    header {
+        width: 100%;
+        padding-left: 1%;
+        text-align:  left;
+    }
+
+    section {
+        width: 75%;
+        padding: 5%;
+        height: 25vw;
+    }
+
+    article, aside {
+        padding: 1%;
+        border-style: double;
+        border-bottom: 1px solid #f5f5f59f;
+    }
+
+    header, section, aside, article {
+        float: left;
+        border-top:   2px solid #F5F5F59f;
+        border-left:  2px solid #F5F5F59f;
+        border-right: 2px solid #F5F5F59f;
+    }
+
+    footer {
+        float: left;
+    }
+
+    #return_button {
+        margin-left: 65vw;
+    }
+
+    @media all and (orientation:portrait) {
+        * {
+            overflow: auto;
+            font-size: medium;
+        }
+        .spotlight {
+            padding: 0;
+            padding-top: 1%;
+            padding-left: 1%;
+        }
+
+        img {
+            width: 80vw;
+        }
+
+        header {
+            margin-top: -2%;
+            margin-bottom: -6%;
+        }
+
+        h2, h4 {
+            width: 75%;
+            position: relative; 
+            margin-left: 0;
+            padding-left: 0;
+            border: 0;
+        }
+        
+        header {
+            height: 25vw;
+        }
+
+        section {
+            height: 50vw;
+        }
+
+        article {
+            overflow: hidden;
+            height: 40vw;
+        }
+
+        aside {
+            height: 80vw;
+        }
+
+        .earlier_label {
+            height: 0;
+            visibility: hidden;
+        }
+
+        #blog_tag {
+            width: 55%;
+            margin: 0;
+            padding: 0;
+            margin-top: 1%;
+            margin-left: 20%;
+            position: relative;
+            border-bottom: 2px dashed #f5f5f59f;            
+        }
+
+        #return_button {
+            margin-left: 18vw;
+        }
+
+        header, section, aside, article {
+            width: 100%;
+            border-top:   1px solid #F5F5F59f;
+            border-left:  1px solid #F5F5F59f;
+            border-right: 1px solid #F5F5F59f;
+        }
+    }
+
+    @media screen and (max-width: 1440px) { 
+        * {
+            font-size: large;
+        }
+    }
+
+    @media screen and (min-width: 600px) and (max-width: 1300px) { 
+        section {
+            height: 18vw;
+        }
+
+        #return_button {
+            margin-left: 45vw;
+        }
+
+        #blog_tag {
+            font-weight: lighter;
+            font-size: xx-large;
+            width: 55%;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            border-bottom: 0;            
+        }
+
+        aside {
+            height: 25vw;
+        }
+
+        header {
+            height: 10vw;
+        }
+
+        article {
+            height: 15vw;
+        }
+    }
+
+    @media screen and (max-width: 600px) { 
+        header {
+            height: 18vw;
+        }
+
+        #return_button {
+            margin-left: 18vw;
+        }
+    }
+
+</style>
+<script>
+    var article_toggle = false;
+
+    let blog = document.getElementById("blog");
+    let blog_tag = document.getElementById("blog_tag");
+    let aside = document.getElementsByTagName("aside");
+    let article = document.getElementsByTagName("article");
+    let spotlight_blog = document.getElementById("spotlight");
+    let return_button = document.getElementById("return_button"); 
+    let css_all_elements = document.getElementsByTagName("*")[0]
+    
+    const overflow_handling = css_all_elements.style.overflow;
+    const article_width = spotlight_blog.style.width;
+    const article_heigth = spotlight_blog.style.height;
+
+    // When spotlight is selected, hide all other elements.
+    spotlight_blog.addEventListener("click", toggleArticle);
+    return_button.addEventListener("click",  toggleArticle);
+
+    function toggleArticle() {
+        console.log(typeof article_toggle)
+        if (!article_toggle) {
+            hideElements(aside);
+            hideElements(article);
+            hideElements(document.getElementsByClassName("description"));
+
+            css_all_elements.style.overflow  = "auto";
+
+            spotlight_blog.className = "";
+            spotlight_blog.style.width = "100%";
+            spotlight_blog.style.height = "100%";
+            spotlight_blog.style.borderBottom = "2px solid #f5f5f59f";
+
+            blog.hidden = false;
+            blog_tag.hidden = true;
+            return_button.hidden = false;
+
+            article_toggle = true;
+            return;
+        }
+
+
+        if (article_toggle) {
+            revealElements(aside);
+            revealElements(article);
+            revealElements(document.getElementsByClassName("description"));
+
+            css_all_elements.style.overflow = overflow_handling;
+
+            spotlight_blog.className = "spotlight";
+            spotlight_blog.style.width = article_width;
+            spotlight_blog.style.height = article_heigth;
+            spotlight_blog.style.borderBottom = "0";
+
+            blog.hidden = true;
+            blog_tag.hidden = false;
+            return_button.hidden = true;
+
+            article_toggle = false;
+            return;
+        }
+    }
+
+    function revealElements(element_array) {
+        for (let child = 0; child <element_array.length; child++) {
+            element_array[ child ].hidden = false;
+        }
+    };
+
+    function hideElements(element_array) {
+        for (let child = 0; child <element_array.length; child++) {
+            element_array[ child ].hidden = true;
+        }
+    };
+
+    // TODO: Spice.
+</script>

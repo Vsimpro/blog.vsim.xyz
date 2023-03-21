@@ -8,79 +8,165 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="/css/style.css">
 </head>
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify">
-        <img src="/img/tv_head_vsim.png" width="60" alt="">
-        <a class="nav-link" href="/index.html"> <strong>Home</strong> </a>
-    </nav>
-</header>
-
 <body>
-    
-    <div class="row">
-        <div class="col-sm-3">
-        </div>
-        <div class="col-sm-6" >
-            <div class="border-general">
-                <h1> <img src="/img/book-xxl.png" width="24" height="24"alt="icon title"/> <a href="/index.html"> blog.vsim.xyz </a>/ <strong><a href="/article/vulnerable-phishing.html"> blog</a></strong><span class="tag"> Public </span> </h1>
-                <div style="color:#cad7e4;">
-                    <h1 style="width: 90%;border-bottom: 2px solid #171B23;color:#cad7e4;"> 
-                        Fire-alarm, </h1>
-                    <p> Finding vulnerable databases in the wild. </p>
-                        <br>
-                    <h2> to note; </h2>
-                    <p> Once again the writer of the article has no malicious intent. Deeds done have been done out of sheer curiosity and disclosures have been done responsibly where could.
-                    </p> <br>
-                    <h2> Premise </h2>
-                    <p> The other day I found out <span style="font-weight: bold;color: #E24C27">firebase</span> databases are sometimes left "open", meaning they're set up so that anyone can read the data inside. Testing a database is quite easy, as you can retrieve data from the database via http endpoints. To test a <span style="font-weight: bold;color: #E24C27">"firebase"</span>, you need to add /.json at the end of the url. If the endpoint responds with something other than an error, for example "null", the database is open.
-                        I'm not sure why it is, but sometimes the database just spits out it's contents upon said request. This leaves the possibility of "dumping" the whole database open. Given the <span style="font-weight: bold;color: #E24C27">firebase</span> db's endpoint is <span style="color:#89c1f5;">{subdomain}.firebasio.com</span> it is possible to just iterate through all of the public databases and check their read access. So we did. </p>
+    <div class="border-general">
+        <!-- NAVBAR -->
+        <header>
+            <div class="main">
+                <h1> 
+                    <a href="/"> blog.vsim.xyz </a>/ <a href="/article/jwtf.html">{this.blog}</a>
+                </h1>
+            </div>
+        </header>
+        <section>
+            <div>
+                <h1> Fire-alarm, </h1>
+                <p> Finding vulnerable databases in the wild. </p>
                     <br>
-                    <img src="img/scanner.png" width="100%">
-                    <p> Sieve of erasthothenes! </p>
-                    <h2 style="width: 90%;border-bottom: 2px solid #171B23;">Statistics</h2>
-                    <p> And they didn't look too good. Going through some 3000 subdomains around 400 were read access. Most of these were simply junk, null, or nothing uninteresting, but around 50 of them included personal data. Here's some example snippets;
-                        <div class="code-box">
-                            <p>
+                    
+                <h2> to note; </h2>
+                <p> Once again the writer of the article has no malicious intent. 
+                    Deeds done have been done out of sheer curiosity and disclosures have been done responsibly where could. </p> <br>
+                
+                <h2> Premise </h2>
+                <p> The other day I found out <span style="font-weight: bold;color: #E24C27">firebase</span> databases are sometimes left "open", meaning they're set up so that anyone can read the data inside. Testing a database is quite easy, as you can retrieve data from the database via http endpoints. To test a <span style="font-weight: bold;color: #E24C27">"firebase"</span>, you need to add /.json at the end of the url. If the endpoint responds with something other than an error, for example "null", the database is open.
+                    I'm not sure why it is, but sometimes the database just spits out it's contents upon said request. This leaves the possibility of "dumping" the whole database open. Given the <span style="font-weight: bold;color: #E24C27">firebase</span> db's endpoint is <span style="color:#89c1f5;">{subdomain}.firebasio.com</span> it is possible to just iterate through all of the public databases and check their read access. So we did. </p>
+                <br>
+                <img src="img/scanner.png" width="100%">
+
+                <h2>Statistics</h2>
+                <p> And they didn't look too good. Going through some 3000 subdomains around 400 were read access. Most of these were simply junk, null, or nothing uninteresting, but around 50 of them included personal data. Here's some example snippets;
+                <div class="code-box">
+                <p>
                         { .. <span style="font-weight: bold;color: #238737">"name"</span>:"x",<span style="color:#F0E15A;">"password"</span>:"x" .. },
                         {<span style="font-weight: bold;color: #238737">"email"</span>:"x@gmail.com",<span style="color:#F0E15A;">"password"</span>:"x", .. }, 
                         {<span style="font-weight: bold;color: #238737">"name"</span>:"xxxxx",<span style="color:#F0E15A;">"password"</span>:"xxxxxxxx"}
                         </p></div>
-                    <p> <br>
-                        Some databases detailed had not only phonenumbers and email addresses, some included hundreds of addresses and names to go alongside of them. The open data pulled was around <span style="font-weight: bold;color: #E24C27">3.3</span> gigabytes and the data after parsing the junk out around <span style="font-weight: bold;color: #E24C27">495</span> megabytes. </p>
+                <p> <br>
+                Some databases detailed had not only phonenumbers and email addresses, some included hundreds of addresses and names to go alongside of them. 
+                The open data pulled was around <span style="font-weight: bold;color: #E24C27">3.3</span> gigabytes and the data after parsing the junk out around 
+                <span style="font-weight: bold;color: #E24C27">495</span> megabytes. </p>
                         
-                    <h2 style="width: 90%;border-bottom: 2px solid #171B23;">We weren't the first to the scene</h2>
-                        Interestingly, we were not the first to dork through the databases. If read access is left on, sometimes write access is aswell. In a few of these dumps you could find near the bottom a snippet:
+                <h2>We weren't the first to the scene</h2>
+                Interestingly, we were not the first to dork through the databases. If read access is left on, sometimes write access is aswell. In a few of these dumps you could find near the bottom a snippet:
                     </p> <br>
                     <div class="code-box"> 
                         {<br>"Exploit":"Successfull", <br> "message":"Pwned", <br>"name":"3l1t_h@x0r"<br>}
                     </div> <br>
                     <p> Meaning someone else had been here prior to us. Checking the <a href="https://haveibeenpwned.com/", target="_blank">have I been pwnd</a> it would appear as if most of these have not been either publicly leaked or disclosed, as many of the emails came up as not being in any leaks. I compiled the data into .json files arranged by the subdomain they got scraped from, and sent them to <span style="color:#F0E15A;">"haveibeenpwnd"</span> for review. </p>
 
-                    <h2 style="width: 90%;border-bottom: 2px solid #171B23;">Conclusions and Some numbers</h2>
+                <h2>Conclusions and Some numbers</h2>
 
-                    <p> Looking at the numbers here, we see that roughly speaking 10% of the scanned <span style="font-weight: bold;color: #E24C27">firebases</span> were left open. A bit over 1% of the total had personal information included. </p>
-                    <p> These numbers match this <a href="https://www.forbes.com/sites/daveywinder/2020/05/12/revealed-4000-android-apps-expose-millions-of-passwords-phone-numbers-and-messages/">Forbes article</a>, where Comparitech security analyzed a sample of <span style="font-weight: bold;color: #238737">155,066</span> applications with Firebase. Out of the said applications, <span style="color:#89c1f5;">7,5%</span> were open and <span style="color:#89c1f5;">2,7%</span> leaked sensitive data.</p>
-                    <p> The statistics are not an exact match. Our sample size of <span style="color:#F0E15A;">3000</span> subdomains is vastly insufficient for meaningful extrapolating, but the sample of <span style="font-weight: bold;color: #238737">155k</span> is already something to go slightly off of. 
-                    It's interesting however that since 2020 the amount of sensitive data leaked per database has <i>seemingly</i> gone down, whilst databases left open have increased in numbers. I suppose one explanation could be people using the services more for testing and building smaller prototypes. Leading into the total amount of both applications and misconfigured ones, while not increasing the amount of sensitive data. </p>
-                    <br>
-                    <p>When building applications, please, please configure them right. 2300 innocent bystanders have their email + password combo leaked due to poorly configured firebases. While that's not a lot, (especially compared to <span style="color:#89c1f5;">11,936,681,242</span> accounts leaked in total according to haveibeenpwned) it would've been 100% preventable by setting read access correctly. 
-                    </p>
+                <p> Looking at the numbers here, we see that roughly speaking 10% of the scanned <span style="font-weight: bold;color: #E24C27">firebases</span> were left open. A bit over 1% of the total had personal information included. </p>
+                <p> These numbers match this <a href="https://www.forbes.com/sites/daveywinder/2020/05/12/revealed-4000-android-apps-expose-millions-of-passwords-phone-numbers-and-messages/">Forbes article</a>, where Comparitech security analyzed a sample of <span style="font-weight: bold;color: #238737">155,066</span> applications with Firebase. Out of the said applications, <span style="color:#89c1f5;">7,5%</span> were open and <span style="color:#89c1f5;">2,7%</span> leaked sensitive data.</p>
+                <p> The statistics are not an exact match. Our sample size of <span style="color:#F0E15A;">3000</span> subdomains is vastly insufficient for meaningful extrapolating, but the sample of <span style="font-weight: bold;color: #238737">155k</span> is already something to go slightly off of. 
+                It's interesting however that since 2020 the amount of sensitive data leaked per database has <i>seemingly</i> gone down, whilst databases left open have increased in numbers. I suppose one explanation could be people using the services more for testing and building smaller prototypes. Leading into the total amount of both applications and misconfigured ones, while not increasing the amount of sensitive data. </p>
+                <br>
+                <p> When building applications, configure them right. 2300 innocent bystanders have their email + password combination open due to poorly configured firebases. While that's not a lot, (especially compared to <span style="color:#89c1f5;">11,936,681,242</span> accounts leaked in total according to haveibeenpwned) it would've been 100% preventable by setting read access correctly. 
+                    All in all, that's about it. Thanks for reading, and I hope you learned something!<br> -Vs1m. </p>
                 </div>
-
-            </div>
-            <footer>
-                <p>2022 - 2023 © Vsim. </p>
-            </footer>
-        </div>
-        <div class="col-sm-3">
-        </div>
-    </div>
+            </section>
+        </div>            
+    <footer>
+        <p>2022 - 2023 © Vsim. </p>
+    </footer>
 </body>
+<style>
+    @font-face { 
+        font-family: Monocraft;
+        src: url("/css/Monocraft.ttf");
+    }
+
+    * {
+        color: #F5F5F5;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        user-select: none;
+    }
+
+    body {
+        padding: 2%;
+        font-family: Monocraft;
+        background-color: #111111;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #666666;
+    }
+
+    img {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        user-select: none;
+    }
+
+    header {
+        padding-left: 1%;
+        text-align:  left;
+    }
+
+    strong {
+        color: #89c1f5;
+        font-weight: lighter;
+    }
+
+    section {
+        padding: 5%;
+    }
+
+    h2, h3, h4 {
+        width: auto;
+        padding: 1%;
+        margin-top: 5%;
+        border-left: 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    header, section {
+        border: 2px solid #F5F5F59f;
+    }
+
+    header, section, footer{
+        width: 50%;
+        margin-left: 25%; margin-right: 5%;
+    }
+
+    header, section, aside, article, footer {
+        float: left;
+    }
+
+    .code-box {
+        width: auto;
+        color: #f5f5f5;
+        text-align: left;
+        border-radius: 4px;
+        background-color: #171B23;
+    }
+
+    @media all and (orientation:portrait) {
+        * {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        img {
+            width: 90vw;
+        }
+
+        body {
+            width: 25%;
+        }
+
+        header, section, footer{
+            margin: 0;
+            width: 96.5vw;
+        }
+    }
+</style>
