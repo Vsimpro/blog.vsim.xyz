@@ -27,7 +27,7 @@
                     Joking around on <span style="color: #E24C27">Discord</span> about how old one of our friend is, we stumbled upon a bug. 
                     If you had the year represented as a number and a dot after it (like 1784.) 
                     <span style="color: #E24C27">Discord</span> would do something interesting: the message would get rendered wrong. 
-                    <img src="/article/img/FirstTouch.png">
+                    <img src="/article/img/FirstTouch.png"> <br>
                     What's going on?
                 </p>
                 <h3> What is Markdown? </h3>
@@ -44,9 +44,9 @@
                     For example, typing "1. First index" generates an ordered list in <span style="color:#89c1f5;">Markdown</span>, beginning from 1.
                     Smartest of you have already realised this seems familiar. When rendered on Discord, 
                     the <span style="color: #238737">HTML</span> generated looks like this: 
-                    <img src="/article/img/GeneratedHTML.png">
+                    <br><img src="/article/img/GeneratedHTML.png"><br>
                     And the application renders the above like this: 
-                    <img src="/article/img/GeneratedRender.png">
+                    <br><img src="/article/img/GeneratedRender.png"><br>
                     Huh, that's <span style="color: #E24C27">interesting</span> -- it seems like the message is <i> flowing </i> outside of bounds.. what is going on?
                 </p>
                 <h3> The bugs origins. </h3>
@@ -60,7 +60,7 @@
                 <h3> How far <span style="color: #E24C27">left</span> can we go? </h3>
                 <p>
                     .. and I'm not here to discuss politics. Let's see how many 3's we can fit into <span style="color: #F0E15A">1337.</span> before something happens:
-                    <img src="/article/img/1337s.png">                   
+                    <br><img src="/article/img/1337s.png"><br>                
                     The limit seems to be at: <span style="color: #F0E15A">13333333337</span>, afterwhich Discord goes ahead and makes it start from 1 again.
                     Biggest number we can insert before it doing the same seems to be <span style="color:  #238737">2147483647</span>, 
                     which unsurprisingly is the maximum size of a <span style="color: #F0E15A">32-bit signed integer.</span> Not really useful knowledge to us, 
@@ -72,14 +72,14 @@
                     Here we get to the fun part: Chaining <span style="color:#89c1f5;">markdown.</span> With lists -- be they ordered or not -- you can use Markdown
                     inside the list element too. Meaning, you guessed it, we can create lists inside of lists.
                     So if the list <span style="color: #238737">number</span>  gets pushed to the <span style="color:#89c1f5;">left</span>, what happens if we have <span style="color: #F0E15A">two</span> of them?
-                    <img src="/article/img/DiscordOverlap.png"> 
+                    <br><img src="/article/img/DiscordOverlap.png"> <br>
                     <span style="color: #E24C27">They overlap!</span> How fun! So how many can we overlap? Unfortunately with lists the number is 11. 
                     Here's what it looks like, using the max integer as the value:
-                    <img src="/article/img/DiscordIntegerOverflow.png">
+                    <br><img src="/article/img/DiscordIntegerOverflow.png"><br>
                     What about other <span style="color:#89c1f5;">markdown</span>? What else can we add to the mix? Let's see headers. We can append "#" at the beginning,
                     to make the whole message one big heading. Or we can use ">" to make block quotes.
                     Here we see some of the bug manifest itself again, <span style="color: #E24C27">as the list pushes "through" the line:</span>
-                    <img src="/article/img/ThroughShot.png">
+                    <br><img src="/article/img/ThroughShot.png"><br>
                 
                 </p>
 
@@ -101,8 +101,10 @@
                 <p>
                     Combine everything learnt here with a 
                     <span style="color:#89c1f5;">g</span><span style="color: #238737">h</span><span style="color: #F0E15A">o</span><span style="color: #E24C27">s</span>t <a href="https://www.youtube.com/watch?v=8UUWspl_1t0">ping</a>, and you can have some fun!
+                    <br>
                     <img src="/article/img/DiscordFun.png">
                     <img src="/article/img/GhostPingTag.png">
+                    <br>
                 </p>
 
                 <p>Thanks for reading, and I hope you learned something!<br>
