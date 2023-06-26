@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Vsim's blog </title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="border-general">
+        <!-- NAVBAR -->
+        <header>
+            <div class="main">
+                <h1> 
+                    <a href="/"> blog.vsim.xyz </a>/ <a href="/article/markdown-mayhem.html">{this.blog}</a>
+                </h1>
+            </div>
+        </header>
+        <section>
+                        
+            <div id="blog" >
+                <h1>Markdown Mayhem in Disco-town.</h1>
+                <p> Premise: <br>
+                    Joking around on <span style="color: #E24C27">Discord</span> about how old one of our friend is, we stumbled upon a bug. 
+                    If you had the year represented as a number and a dot after it (like 1784.) 
+                    <span style="color: #E24C27">Discord</span> would do something interesting: the message would get rendered wrong. 
+                    <img src="/article/img/FirstTouch.png">
+                    What's going on?
+                </p>
+                <h3> What is Markdown? </h3>
+                <p> To fully understand what's going on, we must understand what <span style="color:#89c1f5;">markdown</span> is. 
+                    It's a lightweight markup language, designed for formatting text online. 
+                    You might've seen it in use with <span style="color: #F0E15A">Github Readmes.</span> You can create headings, 
+                    emphasize text through bolding or italic styling, you can create lists, hyperlinks.. 
+                    sometimes more. <span style="color: #E24C27">Discord</span> introduced this feature in the <span style="color: #F0E15A">Spring of 2023</span>, enhancing
+                    the text formatting capabilities of it's platform.
+                </p>
+                <h3> The Rendering Quirk. </h3>
+                <p> 
+                    Within <span style="color:#89c1f5;">markdown</span>, it's possible to create ordered lists that start from a specific number. 
+                    For example, typing "1. First index" generates an ordered list in <span style="color:#89c1f5;">Markdown</span>, beginning from 1.
+                    Smartest of you have already realised this seems familiar. When rendered on Discord, 
+                    the <span style="color: #238737">HTML</span> generated looks like this: 
+                    <img src="/article/img/GeneratedHTML.png">
+                    And the application renders the above like this: 
+                    <img src="/article/img/GeneratedRender.png">
+                    Huh, that's <span style="color: #E24C27">interesting</span> -- it seems like the message is <i> flowing </i> outside of bounds.. what is going on?
+                </p>
+                <h3> The bugs origins. </h3>
+                <p> 
+                    So what's the issue with <span style="color: #E24C27">rendering?</span> We can see that in the <span style="color: #238737">HTML</span>, <span style="color:#89c1f5;">markdown</span> is marked as "::marker".
+                    This is called a "selector", and it creates a pseudo-element to apply <span style="color: #F0E15A">CSS</span> specifically to this marker.
+                    There lies our issue: within the <span style="color: #F0E15A">CSS</span>. The <span style="color: #F0E15A">CSS</span> causes the message to start from further left than it should.
+                    What's interesting is, that the first character of the ordered lists index begins where the message normally begins:
+                    the <span style="color: #F0E15A">CSS</span> <span style="color: #238737">pushes the message left</span> 1 character per 1 character in the <span style="color:#89c1f5;">"ordinal number."</span>
+                </p>
+                <h3> How far <span style="color: #E24C27">left</span> can we go? </h3>
+                <p>
+                    .. and I'm not here to discuss politics. Let's see how many 3's we can fit into <span style="color: #F0E15A">1337.</span> before something happens:
+                    <img src="/article/img/1337s.png">                   
+                    The limit seems to be at: <span style="color: #F0E15A">13333333337</span>, afterwhich Discord goes ahead and makes it start from 1 again.
+                    Biggest number we can insert before it doing the same seems to be <span style="color:  #238737">2147483647</span>, 
+                    which unsurprisingly is the maximum size of a <span style="color: #F0E15A">32-bit signed integer.</span> Not really useful knowledge to us, 
+                    but this means Discord either stores or handles the ordinal numbers as integers, and allows them to be only
+                    the size of a <span style="color: #F0E15A">32-bit int.</span> Anything bigger gets turned to -> <span style="color: #238737">1.</span>
+                </p>
+                <h3> How far can we push the bug? </h3>
+                <p>
+                    Here we get to the fun part: Chaining <span style="color:#89c1f5;">markdown.</span> With lists -- be they ordered or not -- you can use Markdown
+                    inside the list element too. Meaning, you guessed it, we can create lists inside of lists.
+                    So if the list <span style="color: #238737">number</span>  gets pushed to the <span style="color:#89c1f5;">left</span>, what happens if we have <span style="color: #F0E15A">two</span> of them?
+                    <img src="/article/img/DiscordOverlap.png"> 
+                    <span style="color: #E24C27">They overlap!</span> How fun! So how many can we overlap? Unfortunately with lists the number is 11. 
+                    Here's what it looks like, using the max integer as the value:
+                    <img src="/article/img/DiscordIntegerOverflow.png">
+                    What about other <span style="color:#89c1f5;">markdown</span>? What else can we add to the mix? Let's see headers. We can append "#" at the beginning,
+                    to make the whole message one big heading. Or we can use ">" to make block quotes.
+                    Here we see some of the bug manifest itself again, <span style="color: #E24C27">as the list pushes "through" the line:</span>
+                    <img src="/article/img/ThroughShot.png">
+                
+                </p>
+
+                <h3> Ok cool bug, but will Discord fix it? </h3>
+
+                <p>
+                    Maybe. <span style="color: #E24C27">Maybe not.</span> When we stumbled upon it, after playing around with it trying to get something to break, 
+                    we took a look at Twitter. <span style="color: #238737">Has anyone mentioned the bug before?</span>
+                    I only found a handful of tweets regarding the <span style="color:#89c1f5;">Markdown</span> bug. It's interesting and fun to play with, 
+                    but there isn't much real impact, apart from Flexxing your <span style="color: #F0E15A">master h4ck3r skills</span> to your friends. 
+                    I would not be surprised if it was <span style="color: #E24C27">down last</span> on <span style="color: #E24C27">Discords </span> list of things to fix. 
+                    It's interesting it hasn't spread much, this trick,
+                    though after mentioning it to friends I did see it go around some servers a little bit. 
+                    What I did not have the interest to find out was why on Mobile it didn't happen. On mobile it would only render as 50Message -- and continue from there onwards.
+                    Perhaps CSS on mobile is significantly different..? Who knows.
+                </p>
+
+                <h3> Bonus Bug! </h3>
+                <p>
+                    Combine everything learnt here with a 
+                    <span style="color:#89c1f5;">g</span><span style="color: #238737">h</span><span style="color: #F0E15A">o</span><span style="color: #E24C27">s</span>t <a href="https://www.youtube.com/watch?v=8UUWspl_1t0">ping</a>, and you can have some fun!
+                    <img src="/article/img/DiscordFun.png">
+                    <img src="/article/img/GhostPingTag.png">
+                </p>
+
+                <p>Thanks for reading, and I hope you learned something!<br>
+                -Vs1m.</p>
+
+                </section>
+            </div>            
+        <footer>
+            <p>2022 - 2023 © Vsim. </p>
+        </footer>
+    </body>
+
+    <style>
+        @font-face { 
+            font-family: Monocraft;
+            src: url("/css/Monocraft.ttf");
+        }
+    
+        * {
+            color: #F5F5F5;
+            box-sizing: border-box;
+        }
+    
+        h1 {
+            user-select: none;
+        }
+    
+        body {
+            padding: 2%;
+            font-family: Monocraft;
+            background-color: #111111;
+        }
+    
+        a {
+            text-decoration: none;
+        }
+    
+        a:hover {
+            color: #666666;
+        }
+    
+        img {
+            width: 90%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            user-select: none;
+        }
+    
+        header {
+            padding-left: 1%;
+            text-align:  left;
+        }
+    
+        strong {
+            color: #89c1f5;
+            font-weight: lighter;
+        }
+    
+        section {
+            padding: 5%;
+        }
+    
+        h2, h3, h4 {
+            width: auto;
+            padding: 1%;
+            margin-top: 5%;
+            border-left: 1px solid #f5f5f5;
+            border-bottom: 1px solid #f5f5f5;
+        }
+    
+        header, section {
+            border: 2px solid #F5F5F59f;
+        }
+    
+        header, section, footer{
+            width: 50%;
+            margin-left: 25%; margin-right: 5%;
+        }
+    
+        header, section, aside, article, footer {
+            float: left;
+        }
+    
+        .code-box {
+            width: auto;
+            color: #f5f5f5;
+            text-align: left;
+            border-radius: 4px;
+            background-color: #171B23;
+        }
+    
+        @media all and (orientation:portrait) {
+            * {
+                margin-left: 0;
+                margin-right: 0;
+            }
+    
+            img {
+                width: 90vw;
+            }
+    
+            body {
+                width: 25%;
+            }
+    
+            header, section, footer{
+                margin: 0;
+                width: 96.5vw;
+            }
+        }
+    </style>
