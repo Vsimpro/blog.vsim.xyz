@@ -42,120 +42,45 @@
                 <p style="color: #E24C27"> Python </p>    
             </div>
             <!-- SPOTLIGHT BLOG -->
-            <!-- TODO: Add colour and images. -->
-            <div id="blog" hidden>
-                <h1>Bot-chelors_degree</h1>
-                <p> Premise: <br> Recently I came across an ad, that according to facebook had only yet been shown to 2k people. The advertisement presented a game, 
-                a picture-based challenge that required players to identify the field of study or degree represented by a student wearing their <span style="color:#89c1f5;">student-overalls</span>. 
-                Student-overalls are a huge thing amongst Universities of Finland, and the concept is that each field of study gets their own kind with varying colours. 
-                <br>While the game is initially entertaining, it soon revealed several <span style="color: #E24C27">flaws</span> 
-                that allowed players to <span style="color: #F0E15A">cheat and potentially break the game.</span> It seemed as though it was a small, rushed hobby project. 
-                This article explores how I, with great care and attention to detail, <span style="color: #E24C27">developed a bot</span> to dominate the highscores for this unheard game about .. Finnish student overalls. </p>
-    
-                <h3> Overview of the game </h3>
-                <p> The game presents players a picture of a student wearing overalls and four possible options, 
-                    each corresponding to a degree or field of study. The players goal is to correctly guess which option 
-                    corresponds to the overalls. Players are allowed three incorrect guesses, with each guess earning them 
-                    <span style="color: #238737">100 points</span>. The game ends when the player has made three incorrect guesses.
-                    At the end of the game, players with the most points are displayed on a 
-                    <span style="color: #F0E15A">leaderboard.</span> <br>
-
-                    So what's wrong? Well two things:
-                    <ul>                        
-                        <li style="color:#89c1f5;">
-                            * The images displayed are named according to what field of study they represent. This means anyone who knows how to open "inspect elements" can simply just look at the picture name and deduct the right answer.
-                        </li>
-                        <br>
-                        <li style="color:#89c1f5;">
-                            * The correct answers you can also find from the /static/.js file. We can use Python for example to parse the correct answers for the correct pictures. 
-                        </li>    
-                    </ul> </p>
-                
-                    <h3> Overview of the bot </h3>
-                    <p>So I built a <span style="color: #E24C27">bot.</span> Let's look at it!</p>
-                    <p>To actually gather points and stand a chance of winning the game, 
-                    we'll first have to find out the right answers. As mentioned above the correct answers could just be 
-                    parsed out from the static .js file. Let's do that with <span style="color:  #238737">Python.</span> </p>
-                    <br><img src="/article/img/haalaritparser.png"><br>
-                    <p>After that, we'll have to somehow interact with the game. We can achieve that with <span style="color: #F0E15A">selenium</span>, 
-                    and <span style="color:#89c1f5;">beautiful soup.</span> First we need to initialize the web driver for Selenium. Let's use Firefox.</p>
-                    <br><img src="/article/img/selenium_init.png"><br>
-                    <p>We can scrape the name of the image with beautiful soup and then compare it to the data we scraped off
-                    of the static js file. If no correct answer is found, we can throw an error.<br> </p>
-                    <img src="/article/img/pick_correct.png"><br>
-                    We can do this until we want to end the game, thats when we have to pick 3 times wrong.
-                    Since this is the only way <span style="color: #E24C27">end the game</span>, we must ensure we begin "losing" right before the questions
-                    run out -- if we don't, the website just breaks.
-                    Once we recognize the end screen text, we can put in our name and click submit.</p>
-
-                    <h3> Strategy </h3>
-                    <p>With said functionalities, what can and what should we do? We can see that the <span style="color: #F0E15A">leaderboard.</span>  is filled with 9 names, and if the same score occurs the later one gets the "spot". So we should then aim for 9 of the latest insertions of the highest score possible.
-                    We know there's (currently) only <span style="color:#89c1f5;">97 questions</span>, so we can only get the highscore of <span style="color:#89c1f5;">94</span> before having to "end the game" with 3 wrong answers. </p><br>
-                    <img src="/article/img/play_quiz.png"><br>
-                    We can also take a look at the scoreboard at any time by reloading the page and answering 3 wrong from the get go. 
-                    So let's create a <span style="color: #E24C27">persistent bot</span>:
-                    We look at the scoreboard -> if we see a name other than ours, 
-                    we start a loop of 9 iterations to make sure we get all the <span style="color: #F0E15A">spots</span> -> each iterations plays the game and gets the highscore.
-                    After that, we can sleep for a set amount of time before checking the board again.</p>
-                    <br><img src="/article/img/koth.png"><br>
-
-                    <h3> Results </h3>
-                    <p>So does it work?</p>
-                    <img src="/article/img/vs1m_nmbr_1.png">
-                    <p>Yeah! We can leave it running and it will fill up us for all of the spots on the <span style="color: #F0E15A">leaderboard.</span> 
-                    As the frontend takes around <span style="color: #E24C27">20-30ms</span> to load new elements, we can only reliably answer questions every 
-                    <span style="color: #E24C27">50 milliseconds.</span> This results in a round time of 55 - 75 seconds total. Like 3,5 röntgen, 
-                    it's not great but not terrible. Technically <span style="color:  #238737">we could now leave it on loop,</span> and enjoy our "reign" 
-                    on top of the game -- that has enjoyed the exposure of just around 2 thousand people.. </p>
-
-                    <h3> Conclusions </h3>
-                    <p>The game presents a fun challenge for players to test their knowledge of different student overalls.
-                    However, the game is <i>flawed</i> in that it is incredibly easy to cheat and bot the game.  
-                    The bot <span style="color:#89c1f5;">developed</span> in this article demonstrated how these flaws could be exploited to 
-                    consistently achieve a high score and dominate the <span style="color: #F0E15A">leaderboard.</span> 
-                    While the bots strategy is successful in achieving the <span style="color: #F0E15A">highest score</span> and occupying all the spots 
-                    on the leaderboard, it completely undermines the purpose of the game and deprives other players of the 
-                    opportunity to compete fairly. While it's <span style="color: #238737">tempting to exploit games</span>, 
-                    <span style="color: #E24C27">it ultimately damages the fun</span> of the game for everyone else.</span>
-                    Games should be designed in a way that tries to prevent this exploiting and cheating, 
-                    and this article demonstrates some ways a michevious player could "exploit the system." 
-                    <br><br>There we go! The source for the <span style="color: #E24C27">bot</span> can be found here: <a href="https://github.com/Vsimpro/haalarit-bot"> Haalar-it bot. </a> 
-                    Thanks for reading, and I hope you learned something!<br>
-                    -Vs1m.</p>
     </section>
-
     <!-- Other blogs. -->
-    <article>
-        <div class="spacer"></div>
-            <div class="description">
-                <a class="button" href="/article/jwtf.html">
-                    <p> J-W-T-F </p>
-                    <p> Looking at the dangers of misimplemented JWT's </p>
-                    <p style="color: #F0E15A"> CyberSec </p>
-                </a> 
-            </div>
-    </article>
-    <article>
-        <h4 class="earlier_label"> Earlier work </h4>
-        <div class="spacer"></div>
-            <div class="description">
-                <a class="button" href="/article/horse-prowess.html"> 
-                    <p> Horse-prowess </p>
-                    <p> Racing browsers and their engines against eachother. </p>
-                    <p style="color:#89c1f5;"> Development </p>
-                </a> 
-            </div>                            
-    </article>
-    <article>
-        <div class="spacer"></div>
-            <div class="description">
-                <a class="button" href="/article/fire-alarm.html"> 
-                    <p> fire-alarm </p>
-                    <p> Finding open Firebase databases in the wild </p>
-                    <p style="color: #F0E15A"> CyberSec </p>
-                </a>
-            </div>
-    </article>
+    <a class="button" href="/article/jwtf.html">
+        <article>
+            <div class="spacer"></div>
+                <div class="description">
+                    
+                        <p> J-W-T-F </p>
+                        <p> Looking at the dangers of misimplemented JWT's </p>
+                        <p style="color: #F0E15A"> CyberSec </p>
+                    
+                </div>
+        </article>
+    </a> 
+    <a class="button" href="/article/horse-prowess.html"> 
+        <article>
+            <h4 class="earlier_label"> Earlier work </h4>
+            <div class="spacer"></div>
+                <div class="description">
+                    
+                        <p> Horse-prowess </p>
+                        <p> Racing browsers and their engines against eachother. </p>
+                        <p style="color:#89c1f5;"> Development </p>
+                    
+                </div>                            
+        </article>
+    </a>
+    <a class="button" href="/article/fire-alarm.html"> 
+        <article>
+            <div class="spacer"></div>
+                <div class="description">
+                    
+                        <p> fire-alarm </p>
+                        <p> Finding open Firebase databases in the wild </p>
+                        <p style="color: #F0E15A"> CyberSec </p>
+                   
+                </div>
+        </article>
+    </a>
     <article>
         <div class="spacer"></div>
             <a class="button" href="#">
@@ -421,48 +346,7 @@
     return_button.addEventListener("click",  toggleArticle);
 
     function toggleArticle() {
-        window.scrollTo(0, 0);
-
-        if (!article_toggle) {
-            hideElements(aside);
-            hideElements(article);
-            hideElements(document.getElementsByClassName("description"));
-
-            css_all_elements.style.overflow  = "auto";
-
-            spotlight_blog.className = "";
-            spotlight_blog.style.width = "100%";
-            spotlight_blog.style.height = "100%";
-            spotlight_blog.style.borderBottom = "2px solid #f5f5f59f";
-
-            blog.hidden = false;
-            blog_tag.hidden = true;
-            return_button.hidden = false;
-
-            article_toggle = true;
-            return;
-        }
-
-
-        if (article_toggle) {
-            revealElements(aside);
-            revealElements(article);
-            revealElements(document.getElementsByClassName("description"));
-
-            css_all_elements.style.overflow = overflow_handling;
-
-            spotlight_blog.className = "spotlight";
-            spotlight_blog.style.width = article_width;
-            spotlight_blog.style.height = article_heigth;
-            spotlight_blog.style.borderBottom = "0";
-
-            blog.hidden = true;
-            blog_tag.hidden = false;
-            return_button.hidden = true;
-
-            article_toggle = false;
-            return;
-        }
+        window.location.href = "/article/bot-chelors-degree.html";
     }
 
     function revealElements(element_array) {
