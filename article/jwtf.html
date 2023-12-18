@@ -8,6 +8,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/blogs.css">
+
 </head>
 <body>
     <div class="border-general">
@@ -15,7 +18,7 @@
         <header>
             <div class="main">
                 <h1> 
-                    <a href="/"> blog.vsim.xyz </a>/ <a href="/article/jwtf.html">{this.blog}</a>
+                    <a href="/">blog.vsim.xyz</a>/
                 </h1>
             </div>
         </header>
@@ -30,12 +33,12 @@
                 As this <a href="https://thehackernews.com/2023/01/critical-security-flaw-found-in.html?m=1", target="blank_">article</a> 
                 says, there are currently around 22,000+ open source projects using the JWT library.
                 JWT tokens are easy to spot, as they're often found in cookies in base64 format, beginning with 
-                <span style="font-weight: bold;color: #E24C27">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span> and continuing. 
+                <span style="color: #E24C27">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span> and continuing. 
                 The structure of them is simple as they consist of three parts:
-                <span style="font-weight: bold;color: #E24C27">head.</span><span style="font-weight: bold;color: #F0E15A">token.</span><span style="font-weight: bold;color: #238737">tail</span>
+                <span style="color: #E24C27">head.</span><span style="color: #F0E15A">token.</span><span style="color: #238737">tail</span>
                 <br>In the head is to be found the following data, <i>"alg": (often) "HS256"</i> and <i>"typ": "JWT"</i>. The algorythm part tells the server 
-                what algorythm was used with <i>the secret key</i> to create a <strong>hash</strong> of the <span style="font-weight: bold;color: #E24C27">head</span>
-                and the <span style="font-weight: bold;color: #F0E15A">token</span>. This hash is then used as the <span style="font-weight: bold;color: #238737">tail</span>, which can be then used to check the 
+                what algorythm was used with <i>the secret key</i> to create a <strong>hash</strong> of the <span style="color: #E24C27">head</span>
+                and the <span style="color: #F0E15A">token</span>. This hash is then used as the <span style="color: #238737">tail</span>, which can be then used to check the 
                 integrity of the JWT on the backend. </p>
                 <br>
                 
@@ -57,8 +60,8 @@
 
                 <h2>Crafting tokens.</h2>
                 <p> If you didn't sleep on the intro to this article, you know <span style="color:#89c1f5;">JWT</span>'s 
-                    themselves contain data on their verification method. The <span style="font-weight: bold;color: #E24C27">head</span>
-                    tells the server which algo has been used to create the hash for the <span style="font-weight: bold;color: #238737">tail</span> 
+                    themselves contain data on their verification method. The <span style="color: #E24C27">head</span>
+                    tells the server which algo has been used to create the hash for the <span style="color: #238737">tail</span> 
                     part of the token, so we know how to validate the integrity of the token. If the data inside the token has been tampered with, the hash (tail)
                     will not match the one the server will be able to create with the <i>secret key</i>.  </p>
                 <br>
@@ -77,10 +80,10 @@
                                 "expand":{}} }<br>
                 </div></p><p>
                 And tampering this results as a <u class="code-box">403</u> from the API. So how can we forge the <span style="color:#89c1f5;">JWT</span>?
-                We can take a look at the head which reads, <span style="font-weight: bold;color: #E24C27">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span> 
+                We can take a look at the head which reads, <span style="color: #E24C27">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span> 
                 or base64 decoded <strong> { "alg": "HS256", "typ": "JWT" } </strong>. 
                 <br>If we simply change the "alg" to "none" --
-                and get this -- it actually does work, the server will <i> not </i> check the <span style="font-weight: bold;color: #238737">tail</span> 
+                and get this -- it actually does work, the server will <i> not </i> check the <span style="color: #238737">tail</span> 
                 of the <span style="color:#89c1f5;">JWT</span>! Meaning we can change the "id" or "username" to send out requests for the API.
                 In this case it was changing the "id" and/or the "username" of the token into the accounts
                 you wanted to send a message as. </p>
@@ -123,7 +126,7 @@
                 
                 <h2>Conclusions</h2>
                 <p> Development wise:
-                <span style="color: #F0E15A">Never trust the user.</span> When you create an <span style="font-weight: bold;color: #238737">API</span> 
+                <span style="color: #F0E15A">Never trust the user.</span> When you create an <span style="color: #238737">API</span> 
                 that tells the server which account is 
                 sending the data, or requesting it, do not use parameters you can't verify. <span style="color:#89c1f5;">JWT</span> is meant to be read, you can
                 base64 decode the token and read the data from there: if it's crafted correctly, 
@@ -144,101 +147,4 @@
         <p>2022 - 2023 © Vsim. </p>
      </footer>
 </body>
-<style>
-    @font-face { 
-        font-family: Monocraft;
-        src: url("/css/Monocraft.ttf");
-    }
-
-    * {
-        color: #F5F5F5;
-        box-sizing: border-box;
-    }
-
-    h1 {
-        user-select: none;
-    }
-
-    body {
-        padding: 2%;
-        font-family: Monocraft;
-        background-color: #111111;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    a:hover {
-        color: #666666;
-    }
-
-    img {
-        margin-top: 2%;
-        margin-bottom: 2%;
-        user-select: none;
-    }
-
-    header {
-        padding-left: 1%;
-        text-align:  left;
-    }
-
-    strong {
-        color: #89c1f5;
-        font-weight: lighter;
-    }
-
-    section {
-        padding: 5%;
-    }
-
-    h2, h3, h4 {
-        width: auto;
-        padding: 1%;
-        margin-top: 5%;
-        border-left: 1px solid #f5f5f5;
-        border-bottom: 1px solid #f5f5f5;
-    }
-
-    header, section {
-        border: 2px solid #F5F5F59f;
-    }
-
-    header, section, footer{
-        width: 50%;
-        margin-left: 25%; margin-right: 5%;
-    }
-
-    header, section, aside, article, footer {
-        float: left;
-    }
-
-    .code-box {
-        width: auto;
-        color: #f5f5f5;
-        text-align: left;
-        border-radius: 4px;
-        background-color: #171B23;
-    }
-
-    @media all and (orientation:portrait) {
-        * {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        img {
-            width: 90vw;
-        }
-
-        body {
-            width: 25%;
-        }
-
-        header, section, footer{
-            margin: 0;
-            width: 96.5vw;
-        }
-    }
-</style>
+</html>

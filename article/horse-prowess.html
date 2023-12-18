@@ -8,6 +8,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/blogs.css">
+
 </head>
 
 <body>
@@ -16,7 +19,7 @@
         <header>
             <div class="main">
                 <h1> 
-                    <a href="/"> blog.vsim.xyz </a>/ <a href="/article/horse-prowess.html">{this.blog}</a>
+                    <a href="/">blog.vsim.xyz</a>/
                 </h1>
             </div>
         </header>
@@ -28,7 +31,7 @@
                 
                 <h2> Premise </h2>
                 <p> If something can be done on <span style="color:#F0E15A;">JavaScript,</span> it will be. But how well does it run? Whilst building applications on JavaScript I somehow realised the obvious, different browsers have <span style="color:#F0E15A;">JavaScript</span> runtimes.
-                Well, okay, but how do they compare to something like <span style="font-weight: bold;color: #238737">Node?</span> And is it significant?
+                Well, okay, but how do they compare to something like <span style="color: #238737">Node?</span> And is it significant?
                 Let's create a snippet of code to compare the bunch; </p>
                 <br>
                 <img src="/article/img/ErastoThenes.png" width="70%">
@@ -41,14 +44,14 @@
                 <p> Results are in. See them below;  </p>
                 <img src="/article/img/table.png" width="100%">
                 <p> Unsuprisingly, looking at the average scores, there's not a lot of fluctuation. We can see two outliers from the 6 engines;
-                    <br> <span style="font-weight: bold;color:#89c1f5;">Internet Explorer</span>, which I tested to get a rough idea of the other results and
-                    <br> <span style="font-weight: bold;color: #E24C27">Mozilla's FireFox</span>, which beat the othres by a long shot. </p>
+                    <br> <span style="color:#89c1f5;">Internet Explorer</span>, which I tested to get a rough idea of the other results and
+                    <br> <span style="color: #E24C27">Mozilla's FireFox</span>, which beat the othres by a long shot. </p>
                 <p> <br> Here's all of them arranged from slowest to fastest;</p> 
                 <img src="/article/img/Results.png" width="100%">
-                <p> <span style="font-weight: bold;color: #238737">Node</span> being second to last! At first this surprised me. How could a runtime for JavaScript, ran on a desktop machine be <strong> slower </strong></p>
+                <p> <span style="color: #238737">Node</span> being second to last! At first this surprised me. How could a runtime for JavaScript, ran on a desktop machine be <strong> slower </strong></p>
                 <p> than all of the browser ones? </p>
-                <p> However, it does make sense. <span style="font-weight: bold;color: #238737">Node.js</span> is not meant to be a responsive, light weight component of a web-browser. Browsers must run the code as fast as they can with minimal bloat, otherwise they will feel slow and unresponsive.</p>
-                <p> The results show that  <span style="font-weight: bold;color:#89c1f5;">Internet Explorer</span> (unsuprisingly) is indeed ages slower than it's modern counterparts. The fact it is 3,700% slower than the fastest browser surely amounts for all of the memes made of <span style="font-weight: bold;color:#89c1f5;">IE's slowness.</span></p> 
+                <p> However, it does make sense. <span style="color: #238737">Node.js</span> is not meant to be a responsive, light weight component of a web-browser. Browsers must run the code as fast as they can with minimal bloat, otherwise they will feel slow and unresponsive.</p>
+                <p> The results show that  <span style="color:#89c1f5;">Internet Explorer</span> (unsuprisingly) is indeed ages slower than it's modern counterparts. The fact it is 3,700% slower than the fastest browser surely amounts for all of the memes made of <span style="color:#89c1f5;">IE's slowness.</span></p> 
                     
                 <h2>Conclusions</h2>
                 <p> Some more context could be helpful. The Mozilla browser and it's engine are actually quite fast. </p>
@@ -63,101 +66,4 @@
         <p>2022 - 2023 © Vsim. </p>
     </footer>
 </body>
-<style>
-    @font-face { 
-        font-family: Monocraft;
-        src: url("/css/Monocraft.ttf");
-    }
-
-    * {
-        color: #F5F5F5;
-        box-sizing: border-box;
-    }
-
-    h1 {
-        user-select: none;
-    }
-
-    body {
-        padding: 2%;
-        font-family: Monocraft;
-        background-color: #111111;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    a:hover {
-        color: #666666;
-    }
-
-    img {
-        margin-top: 2%;
-        margin-bottom: 2%;
-        user-select: none;
-    }
-
-    header {
-        padding-left: 1%;
-        text-align:  left;
-    }
-
-    strong {
-        color: #89c1f5;
-        font-weight: lighter;
-    }
-
-    section {
-        padding: 5%;
-    }
-
-    h2, h3, h4 {
-        width: auto;
-        padding: 1%;
-        margin-top: 5%;
-        border-left: 1px solid #f5f5f5;
-        border-bottom: 1px solid #f5f5f5;
-    }
-
-    header, section {
-        border: 2px solid #F5F5F59f;
-    }
-
-    header, section, footer{
-        width: 50%;
-        margin-left: 25%; margin-right: 5%;
-    }
-
-    header, section, aside, article, footer {
-        float: left;
-    }
-
-    .code-box {
-        width: auto;
-        color: #f5f5f5;
-        text-align: left;
-        border-radius: 4px;
-        background-color: #171B23;
-    }
-
-    @media all and (orientation:portrait) {
-        * {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        img {
-            width: 90vw;
-        }
-
-        body {
-            width: 25%;
-        }
-
-        header, section, footer{
-            margin: 0;
-            width: 96.5vw;
-        }
-    }
-</style>
+</html>

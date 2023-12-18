@@ -1,0 +1,374 @@
+@font-face {
+    font-family: "Monocraft";
+    src: url('/css/Monocraft.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PC';
+    src: url('/css/PC_9800.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    user-select:  none;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+    display: table;
+    margin: auto;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    margin-left: -100px;
+
+    font-family: "Monocraft";
+    font-size: 16px;
+    color: #eee;
+    background-color: #111111;    
+
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+}
+
+body::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+
+
+h1, h2, h3, h4 {
+    font-family: "PC";
+    font-weight: lighter;
+}
+
+u {
+    text-decoration: underline;
+    text-decoration-color: grey;
+}
+
+h2 {
+    margin-bottom: 2px;
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+
+    margin-top: 5px;
+}
+
+
+nav {
+    margin: 0;
+    padding: 0;
+
+    padding-top:    24px;
+    padding-bottom: 18px;
+
+    margin-left: 68px;
+
+    width: 992px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    
+
+    border-left:  2px solid rgba(255, 255, 255, 0.5);
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    background: linear-gradient(to bottom,  #111111, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(/img/noise.svg);
+
+}
+
+nav-item {
+    margin: 0;
+    padding: 0;
+}
+
+.earlier {
+    margin: 0;
+    padding: 0;
+
+    margin-top: -35px;
+}
+
+.navleft {
+    float: left;
+    text-align: left;
+    padding-left: 50px;
+    margin-right: 400px;
+}
+
+
+.navright {
+    float: right;    
+    text-align: right;
+
+    padding-right: 10px;
+}
+
+a, a:hover, a:active {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+.main {
+    margin: 0;
+    padding: 0;
+
+    margin-left: 6%;
+
+    width:  1000px;
+    height: 500px;
+
+    border-radius: 4px;
+    
+    border-top:  2px solid white;
+    background-color: transparent;
+}
+
+.about {
+    padding: 0;
+    padding: 2%;
+
+    float: left;
+    width: 300px;
+    height: 380px;
+    border-left: 3px solid white;
+}
+
+
+.showcase {
+    padding: 0;
+    padding: 2%;
+
+    float: left;
+    width: 640px;
+    height: 550px;
+
+    border-left:  3px solid white;
+}
+
+.rightmost {
+    padding: 0;
+    padding: 28.5px;
+
+    float: right;
+    width:  0px;
+    height: 240px;
+
+    border-right:  3px solid white;
+
+}
+
+nav {
+    border-image: linear-gradient( to top, white, rgba(0, 0, 0, 0)) 1 100%;
+}
+
+.showcase, .rightmost, .about {
+    padding-top: 0;
+    border-image: linear-gradient( to bottom, white, rgba(0, 0, 0, 0)) 1 100%;
+}
+
+
+.card_pack {
+    width: 700px;
+    display: flex;
+}
+
+.card, .main-card {
+    margin: 0;
+    padding: 0;
+    
+    width: 650px;
+
+    padding-left: 2%;
+
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+.main-card {
+    margin-left: 7px;
+    height: 90px;
+    width: 632px;
+}
+
+.card {
+    height: 120px;
+    width: 306px;
+    
+    float: right;
+
+    margin: 1%;
+    padding: 1%;
+}
+
+.bwifs {
+    visibility: unset;
+    user-select: none;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+
+    width: 20%;
+    height: 15%;
+
+    margin-top: 500px;
+    margin-left: -100px;
+
+    position: absolute;
+}
+
+
+.c2r {
+    user-select: none;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+
+    margin-top: 60px;
+    margin-left: 22%;
+
+    position: absolute;
+    transform: rotate(20deg);
+}
+
+.main-card:hover, .card:hover {
+    cursor: pointer;
+    background: linear-gradient(to left,#111111, rgba(0, 0, 0, 0)), url("/img/noise.svg");
+}
+
+
+@media all and (orientation:portrait) and (max-width: 1000px) {    
+    html {
+        all:unset;
+        overflow-x: hidden;
+        margin: auto;
+          
+    }
+
+    body {
+        width: 100%;
+
+        margin: 0;
+        padding: 0;
+
+        width: var(--width);
+        display: inline-block;
+
+        max-width: var(--width);
+        overflow-x: hidden;
+    }
+
+    .navleft, .navright, nav-item {
+        margin: 0;
+        padding: 0;
+    }
+
+    .navleft {
+        width: 200%;
+    }
+
+    .navright {
+        visibility: hidden;
+    }
+
+    .earlier , .main, .about, .rightmost, .showcase, .main-card, .card {
+        all: revert;
+
+        float: left;
+
+        padding: 1%;
+    }
+
+    .about {
+        padding: 0%;
+        width: 130%;
+        
+        margin-top: -2%;
+        border-top: 1px solid rgb(35, 35, 133);
+
+        box-shadow: 0px -10px 8px rgb(35, 35, 133);
+
+        background: linear-gradient(to top,#111111, rgba(0, 0, 0, 0.65)), url("/img/noise.svg");
+        background-color: blue;
+    }
+
+    body {
+        width: 90%;
+        padding: 0;
+        margin: 0;
+
+        margin-left: 6%;
+
+        border-left:  1px solid white;
+        border-right: 1px solid white;
+        border-image: linear-gradient( to bottom, white, white, rgba(0, 0, 0, 0)) 1 100%;
+    }
+
+    nav {
+        border: 0;
+        background-color: blue;
+    }
+
+    nav, .main {
+        margin-left: 0;
+    }
+
+    .main {
+        width: 82%;
+        display: inline;
+        padding-left: 0;
+    }
+
+    img {
+        width: 0px;
+        visibility: hidden;
+    }
+
+    .main-card {
+        margin-left: 1%;
+        width: 113.5%;
+    }
+
+    .card {
+        width: 50%;
+        
+        margin: 1%;
+        padding: 1%;
+
+    }
+
+    .card_pack {
+        width: 120%;
+        display: flex;
+    }
+
+    .card, .main-card {            
+        padding-left: 2%;
+    
+        border: 1px solid grey;
+        border-radius: 4px;
+    }
+
+    h1, p {
+        padding-left: 2%;
+    }
+}

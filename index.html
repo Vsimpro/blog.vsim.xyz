@@ -1,370 +1,85 @@
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <title> Vsim's blog </title>
-
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport"  content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+    
+    <link rel="stylesheet" href="/css/styles.css">  
+    <link rel="stylesheet" href="/css/animation.css">  
+    <title> blog.vsim.xyz </title>
 </head>
 <body>
-    <!-- NAVBAR -->
-    <header>
-        <div class="main">
-            <h1 style="font-weight: lighter;"> 
-                <a href="https://vsim.xyz"> vsim.xyz </a>/ <a href="/index.html" style="color:#89c1f5;"> blog</a>
-                <span id="return_button" hidden> return; </span>
+    <nav>
+        <nav-item class="navleft">
+            <p> <a href="/">index of blog.vsim.xyz/</a> </p>
+        </nav-item>
+        <nav-item class="navright">
+            <p> made by <a href="https://vsim.xyz/">vs1m</a> </p>
+        </nav-item>
+    </nav>
+    <div class="main">
+        <div class="about">
+            <h1> 
+                <span style="font-size: xx-large;color: #2edf51">about.</span>
             </h1>
-        </div>
-    </header>
+            
+            <p> welcome to my weblog. </p>
+            <p> here you'll find articles regarding my projects, findings, and ideas. </p>
+            <p> you'll get the best experience on desktop, as opposed to mobile! </p>
+            <br>
+            <p> <span style="font-family: PC;font-size: xx-large">enjoy!</span> </p>
 
-    <!-- ABOUT -->
-    <aside>
-        <div>
-            <p style="font-size: xx-large;color: #2edf51"> About </p>
-            <p> Welcome to my weblog. Here you'll find writings regarding some of my projects, findings and ideas. Enjoy! </p>
-            <button><a href="https://vsim.xyz" style="color: #030327;"> my homepage </a></button>
-            <p> All of the source is available on GitHub: 
-                <a href="https://github.com/Vsimpro/", target="_blank"> Vsimpro </a> </p>
-        </div>
-    </aside>
-
-    <!-- SPOTLIGHT -->
-    <section id="spotlight" class="spotlight">
-        <h2 id="blog_tag" style="color:#89c1f5;"> Latest blog </h2>
-        <div class="spacer"></div>
-            <div class="description">
-                <p> Markdown Mayhem in Disco-town </p>
-                <p> Unravelling and looking further into a bug in Discord.  </p>
-                <p style="color: #E24C27"> Bugs </p>    
-            </div>
-            <!-- SPOTLIGHT BLOG -->
-    </section>
-    <!-- Other blogs. -->
-    <a class="button" href="/article/bot-chelors-degree.html"> 
-        <article>
-            <div class="spacer"></div>
-                <div class="description">
-                    
-                    <p> Bot-chelors_degree </p>
-                    <p> Creating a sophisticated bot for a game nobody knows about.  </p>
-                    <p style="color: #E24C27"> Python </p>    
-                   
-                </div>
-        </article>
-    </a>
-    <a class="button" href="/article/jwtf.html">
-        <article>
-            <div class="spacer"></div>
-                <div class="description">
-                    
-                        <p> J-W-T-F </p>
-                        <p> Looking at the dangers of misimplemented JWT's </p>
-                        <p style="color: #238737"> CyberSec </p>
-                    
-                </div>
-        </article>
-    </a> 
-    <a class="button" href="/article/horse-prowess.html"> 
-        <article>
-            <h4 class="earlier_label"> Earlier work </h4>
-            <div class="spacer"></div>
-                <div class="description">
-                    
-                        <p> Horse-prowess </p>
-                        <p> Racing browsers and their engines against eachother. </p>
-                        <p style="color:#89c1f5;"> Development </p>
-                    
-                </div>                            
-        </article>
-    </a>
-    <a class="button" href="/article/fire-alarm.html"> 
-        <article>
-            <div class="spacer"></div>
-                <div class="description">
-                    
-                        <p> fire-alarm </p>
-                        <p> Finding open Firebase databases in the wild </p>
-                        <p style="color: #F0E15A"> CyberSec </p>
-                   
-                </div>
-        </article>
-    </a>
-    <footer>
-        <p> 2023 © Vs1m<span class="flicker">_</span></p> 
-    </footer>
-</body>
-<style>
-    @font-face { 
-        font-family: Monocraft;
-        src: url("/css/Monocraft.ttf");
-    }
-
-    * {
-        color: #F5F5F5;
-        user-select: none;
-        overflow: hidden;
-        font-size: x-large;
-        box-sizing: border-box;
-    }
-
-    body {
-        padding: 2%;
-        font-family: Monocraft;
-        background-color: #111111;
-    }
-
-    aside {
-        width: 25%;
-        height: 40vw;
-    }
-
-    article {
-        width: 18.75%;
-        height: 15vw;    
-    }
-
-    #return_button {
-        margin-left: 1%; margin-right: 1%;
-        padding-left: 1%; padding-right: 1%;
-    }
-
-    #return_button:hover {
-        border: 1px solid #f5f5f59f;
-        border-bottom: 1px solid #f5f5f59f;
-    }
-
-    article:hover, .spotlight:hover, .spotlight:hover #blog_tag, #return_button:hover {
-        cursor: pointer;
-        background-color: #222222;
-    }
-
-    a {
-        text-decoration: none;
-        font-family: Monocraft;
-    }
-
-    a:hover {
-        color: #666666;
-    }
-
-    h2 {
-        margin-top: -5.6vw;
-        margin-left: 20%;
-        background-color: #111111;
-        padding-left: 2%; padding-right: 2%;
-    }
-
-    h3 {
-        padding-left: 1%;
-        border-left:   2px solid #F5F5F5;
-        border-bottom: 2px solid #F5F5F5;
-    }
-
-    h4 {
-        padding: 1%;
-        margin-left: 9%;
-        margin-top: -2.9%;
-        font-weight: lighter;
-        background-color: #111111;
-    }
-
-    h2, h4 {
-        position: fixed;
-        border: 2px solid #F5F5F59f;
-    }
-
-    header {
-        width: 100%;
-        padding-left: 1%;
-        text-align:  left;
-    }
-
-    section {
-        width: 75%;
-        padding: 5%;
-        height: 25vw;
-    }
-
-    article, aside {
-        padding: 1%;
-        border-style: double;
-        border-bottom: 1px solid #f5f5f59f;
-    }
-
-    header, section, aside, article {
-        float: left;
-        border-top:   2px solid #F5F5F59f;
-        border-left:  2px solid #F5F5F59f;
-        border-right: 2px solid #F5F5F59f;
-    }
-
-    footer {
-        float: left;
-    }
-
-    #return_button {
-        margin-left: 65vw;
-    }
-
-    @media all and (orientation:portrait) {
-        * {
-            overflow: auto;
-            font-size: medium;
-        }
-        .spotlight {
-            padding: 0;
-            padding-top: 1%;
-            padding-left: 1%;
-        }
-
-        img {
-            width: 80vw;
-        }
-
-        header {
-            margin-top: -2%;
-            margin-bottom: -6%;
-        }
-
-        h2, h4 {
-            width: 75%;
-            position: relative; 
-            margin-left: 0;
-            padding-left: 0;
-            border: 0;
-        }
+            <p> ps. if you'd like to see my homepage instead, click <a href="https://vsim.xyz/">here</a>
         
-        header {
-            height: 25vw;
-        }
+        </div>
 
-        section {
-            height: 50vw;
-        }
+        <div class="showcase">
+            <h1> <span style="font-size: xx-large;color: #6ba6ff;">latest blog:</span></h1>
+            <div class="main-card" id="5">
+                <p> <u>Markdown Mayhem in Disco-town</u> </p>
+                <p> unravelling and looking deeper into a bug in Discord. </p>
+            </div>
 
-        article {
-            overflow: hidden;
-            height: 40vw;
-        }
+            <br>
+            <div class="earlier">
+                <h2> <span style="font-size: xx-large;color: #fafd24;  margin-left: 6px;">earlier work</span> </h2>
+                
+                <div class="card_pack">
+                    
+                    <div class="card" id="3">
+                        <p> <u>Bot-chelors_degree</u> </p>
+                        <p> creating a bot for a game no-one plays. </p>
+                    </div>
+                    
+                    <div class="card" id="2">
+                        <p> <u>J-WTF</u> </p>
+                        <p> dangers of misimplemented JWT's. </p>
+                    </div>
 
-        aside {
-            height: 80vw;
-        }
+                </div>
+                <div class="card_pack">
 
-        .earlier_label {
-            height: 0;
-            visibility: hidden;
-        }
+                    <div class="card" id="1">
+                        <p> <u>Horse-Prowess</u> </p>
+                        <p> browser javascript-engine nascar! </p>
+                    </div>                    
 
-        #blog_tag {
-            width: 55%;
-            margin: 0;
-            padding: 0;
-            margin-top: 1%;
-            margin-left: 20%;
-            position: relative;
-            border-bottom: 2px dashed #f5f5f59f;            
-        }
 
-        #return_button {
-            margin-left: 18vw;
-        }
+                    <div class="card" id="0">
+                        <p> <u>fire-alarm</u> </p>
+                        <p> open <span style="color: #ff8622">Firebase</span> databases out in the wild </p>
+                    </div>       
+                    
+                </div>
+                <img class="c2r" width="350px" height="120px" src="/img/Click2Read.svg">
+            </div>
+            
+        </div>    
+        
+        <div class="rightmost">
+        </div>
+    </div>
+</body>
+</html>
 
-        header, section, aside, article {
-            width: 100%;
-            border-top:   1px solid #F5F5F59f;
-            border-left:  1px solid #F5F5F59f;
-            border-right: 1px solid #F5F5F59f;
-        }
-    }
-
-    @media screen and (max-width: 1440px) { 
-        * {
-            font-size: large;
-        }
-    }
-
-    @media screen and (min-width: 600px) and (max-width: 1300px) { 
-        section {
-            height: 18vw;
-        }
-
-        #return_button {
-            margin-left: 45vw;
-        }
-
-        #blog_tag {
-            font-weight: lighter;
-            font-size: xx-large;
-            width: 55%;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            border-bottom: 0;            
-        }
-
-        aside {
-            height: 25vw;
-        }
-
-        header {
-            height: 10vw;
-        }
-
-        article {
-            height: 15vw;
-        }
-    }
-
-    @media screen and (max-width: 600px) { 
-        header {
-            height: 18vw;
-        }
-
-        #return_button {
-            margin-left: 18vw;
-        }
-    }
-
-</style>
-<script>
-    var article_toggle = false;
-
-    let blog = document.getElementById("blog");
-    let blog_tag = document.getElementById("blog_tag");
-    let aside = document.getElementsByTagName("aside");
-    let article = document.getElementsByTagName("article");
-    let spotlight_blog = document.getElementById("spotlight");
-    let return_button = document.getElementById("return_button"); 
-    let css_all_elements = document.getElementsByTagName("*")[0]
-    
-    const overflow_handling = css_all_elements.style.overflow;
-    const article_width = spotlight_blog.style.width;
-    const article_heigth = spotlight_blog.style.height;
-
-    // When spotlight is selected, hide all other elements.
-    spotlight_blog.addEventListener("click", toggleArticle);
-    return_button.addEventListener("click",  toggleArticle);
-
-    function toggleArticle() {
-        window.location.href = "/article/markdown-mayhem.html";
-    }
-
-    function revealElements(element_array) {
-        for (let child = 0; child <element_array.length; child++) {
-            element_array[ child ].hidden = false;
-        }
-    };
-
-    function hideElements(element_array) {
-        for (let child = 0; child <element_array.length; child++) {
-            element_array[ child ].hidden = true;
-        }
-    };
-
-    // TODO: Spice.
-</script>
+<script src="/js/scripts.js"></script>
