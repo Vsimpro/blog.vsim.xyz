@@ -19,7 +19,7 @@
 
 @font-face {
     font-family: 'FiraCode-bold';
-    src: url('/css/FiraCode-medium.ttf') format('truetype');
+    src: url('/css/FiraCode-Medium.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -51,7 +51,7 @@ body {
     margin: auto;
 
     font-family: "FiraCode";
-
+    
     color: #eee;
     background-color: #121212;   
 }

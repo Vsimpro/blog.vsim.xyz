@@ -44,6 +44,8 @@ body {
     display: inline-block;
     align-items: center;
     justify-content: center;
+
+    cursor: url("/img/league_cursor.png"), auto;
 }
 
 body {
@@ -259,6 +261,7 @@ a:hover, a:active {
 
 .main-card:hover, .card:hover {
     cursor: pointer;
+    cursor: url("/img/league_cursor_open.png"), pointer;
     background: linear-gradient(to left,#111111, rgba(0, 0, 0, 0)), url("/img/noise.svg");
 }
 
