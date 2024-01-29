@@ -3,8 +3,8 @@ links = {
     "1" : "/article/horse-prowess.html",
     "2" : "/article/jwtf.html",
     "3" : "/article/bot-chelors-degree.html",
-    "4" : "/article/fire-alarm.html",
-    "5" : "/article/markdown-mayhem.html"
+    "4" : "/article/markdown-mayhem.html",
+    "5" : "/article/east-west-client.html"
 }
 
 var main = document.getElementsByClassName( "main-card" )[ 0 ]
