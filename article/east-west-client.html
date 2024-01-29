@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Vsim's blog </title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/blogs.css">
+
+</head>
+<body>
+    <div class="border-general">
+        <!-- NAVBAR -->
+        <header>
+            <div class="main">
+                <h1> 
+                    <a href="/">blog.vsim.xyz</a>/ <span style="font-size: medium;"> <-- click to return </span>
+                </h1>
+            </div>
+        </header>
+        <section>       
+            <div id="blog" >
+                <h1> East-, West-, Client-side. </h1>
+                <p> Using client-side <span style="color:#89c1f5;">JavaScript</span> to build a tool for <span style="color: #E24C27">Portscanning</span> and <span style="color: #F0E15A">Host Detection.</span> </p>
+
+                <h2> Premise: </h2>
+                <p> While on a holiday in Vienna, me and my buddies noticed a peculiar device on one of the walls of the hotel. 
+                    This mystical device turned out to be an <span style="color:#89c1f5;">iPad</span>, in single-app mode. 
+                    The iPad was used to control the lights of the room. Of course that got us thinking, <br>
+                    could we use it in unintended ways? 
+                </p>
+
+                <h3> Why? </h3>
+                <p>
+                    Devices like these are often called <span style="color: #F0E15A">'single-app kiosk'</span>. Kiosk is described as 
+                    'small open-fronted from which items are sold'. <br>
+                    These kiosk- tablets are often restricted to just doing what they're set up as, be it light control, self-checkout, a map of a mall, and so on.
+                    They're made in a restrictive way, with no way to escape, to prevent misuse of the machine. 
+                </p>
+
+                <p> But if you are a clever individual, you can find a way to open a browser. 
+                    For example the light-control app allowed us to log in to <span style="color: #238737">Spotify</span> with <span style="color: #F0E15A">Google</span>.
+                    This opens either a browser, or a pseudo browser. And Google of course gives you an option to read their <span style="color:#89c1f5;">Privacy & Terms.</span> 
+                    From that page, you can find a link directly to Google search.. and the world is yours to explore!
+                </p>
+
+                <p>
+                    Whilst we're already progressing away from the restrictions of the kiosk, we're still stuck in the browser. 
+                    One direction to go to from here would be to move laterally, inside the network, to other machines. 
+                    For example many routers come with a <span style="color: #E24C27">webpanel</span>, but how do we access it?
+                </p>
+
+                <h3> How? </h3>
+                <p> This is where 
+                    <a href="https://github.com/Vsimpro/kiosk.vsim.xyz"><span style="color: #F0E15A">my kiosk tooling</span></a>
+                     comes into play. 
+                    With HTML, and JavaScript it's trivial to make a tool that allows us to redirect our browser to any wanted address.
+                    If we know a router is on address <span style="color: #238737">192.168.1.1</span>, and the webpanel is on port <span style="color: #E24C27">80</span>, 
+                    we can simply redirect ourselves into http://<span style="color: #238737">192.168.1.1</span>:<span style="color: #E24C27">80</span>/
+                </p>
+                
+                <p>
+                    There's a slight problem though. How do we know which hosts exist in the network, what are their addresses, and what ports are open?
+                </p>
+
+                <h3> Statistics on Ports </h3>
+                <p> 
+                    Much of my knowledge regarding the following chapter came from this <a href="https://incolumitas.com/2021/01/10/browser-based-port-scanning/"><span style="color:#89c1f5;">blog.</span></a>
+                    I highly recommend reading it, in it the author Nikolai Tschacher goes deep into the statistics and different methods of scanning open ports. 
+                </p>
+                
+                <p>
+                    The extremely basic rundown of the method goes as follows: <br>
+                    We request a resource with <span style="color:#89c1f5;">JavaScript</span>, for example using Image.src, 
+                    and we clock how much time the operation takes. The port 80 will respond to this request likely with an <span style="color: #F0E15A">HTTP response 404.</span> 
+                    <span style="color: #238737">This is fast.</span> But the port 81, when closed, will only produce us an <span style="color: #F0E15A">error</span>.<span style="color: #E24C27">This is slow.</span>
+                </p>
+                <img style="user-select: none;" src="/article/img/PortScan_demo.png" width="50%">
+                <p>
+                    It is so much slower infact, that it's easy to tell which ports are open, and which ones are not. If the clocked time is below 100's of milliseconds,
+                    it is likely that the port is open. Or if the timing is above 1000's, we can assume a port is closed. <br>
+                    To be sure, we can use the ratio of known closed ports to the ports we want to test.
+                </p>
+
+                <img style="user-select: none;" src="/article/img/unrealiable_data.png" width="50%">
+
+                <p>
+                    I was going to use <span style="color:#89c1f5;">Image.src</span> and it's .onerror function to map out these timings, but this is asynchronous. 
+                    When fired through a <span style="color: #238737">for-loop</span>, the timings would increase lineary throughout the ports. All of the timers start simultaniosly, while the errors come one after another.
+                    This means the results were all <span style="color: #E24C27">WHACK</span>. This is illustrated in the image above.
+                    I tried recursion to fix this issue of rising latency, but surprisingly, <br>
+                    <br>
+                    It didn't work. Well, somewhat, but not enough.<br>
+                    <br> So instead, we use <span style="color:#89c1f5;">fetch()</span>, and wait for each function call to finish.
+                    It turned out to be much simpler.
+                </p>
+
+                <img style="user-select: none;" src="/article/img/side_by_side_scan.png" width="50%">
+
+                <h3> Statistics on Hosts </h3>
+                <p> Yeah yeah, ports this and that, but what use is it if we don't know the addresses the of devices? </p>
+
+                <p> I gotchu bro, I gotchu. </p>
+
+                <p> While writing the Port Scanner, I noticed something interesting. As we need to have one <span style="color: #E24C27">closed port</span>
+                    to test the timings against, I started to think, how can we make sure a port is in fact closed? Surely, 
+                    we can just give an arbitary address to a host we know doesn't exist in the <span style="color: #238737">Network</span>,
+                    this way it can't hit an open port.
+                </p>
+
+                <img style="user-select: none;" src="/article/img/host_detection.png" width="50%">
+
+                <p> From the image above you can see, that the time it takes for it to error out shot through the roof. The ratio between a host that exists,
+                    with a port that is closed, to a host that doesn't exist at all is <span style="color: #F0E15A">10x</span>!
+                </p>
+
+                <p>
+                    With a closed port the machine drops the request, be it right protocol or not. 'This port is closed, you're not allowed to send anything there.'
+                    <span style="color: #238737">This is fast.</span> <br>
+                    But if there is no Computer, no Server, no Router behind the address to receive the connection, it will time out. <span style="color: #E24C27">This is slow.
+                </p>
+
+                <p>
+                    With this technique, it is possible to do <span style="color: #F0E15A">Host Detection</span> in a LAN setting. We can give an IP range, like 
+                    <span style="color:#89c1f5;">192.168.1.0/24</span>, and go through all of the addresses with an arbitary port number. 
+                    Then we compare the timing again to a known address, for an assumed closed port (<span style="color: #238737">localhost</span>:<span style="color: #E24C27">60666</span>).
+                    If the ratio is, say, above <span style="color: #F0E15A">8x</span> we determine the address / host to be offline.
+                </p>
+
+                <h3> Usecases, future </h3>
+                <p> I've written simple tooling utilizing these techniques. They can be found from
+                    <a href="https://kios.vsim.xyz/port_scanner/index.html"><span style="color: #F0E15A">kiosk.vsim.xyz/</span></a>
+                    <br> In there we've collected a set of tools to aid in Kiosk-mode pentests. The toolset is expanding, and if you wish to see something in it,
+                    don't hesitate to either hit me up or make a pull request to the repo!
+                </p>
+
+                <p>
+                    Whilst writing the tooling, a thought came to my mind. <br>
+                    Could we not use these techniques to map out <span style="color: #238737">LAN</span>-networks across the globe?
+                    In theory if someone were to make a website, that had these tools built in and trigger at refresh, 
+                    they could collect statistical data on the site users network. What <span style="color: #F0E15A">hosts</span> are there,
+                     and what <span style="color: #E24C27">ports</span> do they have open? I think in the future this is something that would be cool to demo out.
+                </p>
+
+                <p> What do you think? Would this be cool to see? </p>
+                <p><br></p>
+
+                <p>Thanks for reading, and I hope you learned something! <br>
+                -Vs1m.</p>
+
+                </section>
+            </div>            
+        <footer>
+            <p>2022 - 2024 © Vsim. </p>
+        </footer>
+    </body>
+</html>
