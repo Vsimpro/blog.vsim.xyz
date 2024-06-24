@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Vsim's blog </title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/blogs.css">
+
+</head>
+<body>
+    <div class="border-general">
+        <!-- NAVBAR -->
+        <header>
+            <div class="main">
+                <h1> 
+                    <a href="/">blog.vsim.xyz</a>/ <span style="font-size: medium;"> <-- click to return </span>
+                </h1>
+            </div>
+        </header>
+        <section>       
+            <div id="blog" >
+                <h1> Automagical Bug Hunting -- part 1 </h1>
+                <p> Designing an automatic vulnerability scanner suite for <span style="color: #6ba6ff;">bug bounty</span> hunting. </p>
+
+                <h2> foreword </h2>
+                <p>This whole project began from a small discussion with friends online. After a few weeks of working I did research,
+                    which I should've done prior, and found an article with a very similiar approach: <br><br>
+                    <a href="https://labs.detectify.com/ethical-hacking/hakluke-creating-the-perfect-bug-bounty-automation/" target="_blank">
+                        <span style="text-decoration:underline; color: #2edf51">Hakluke: Creating the perfect bug bounty automation</span>
+                    </a><br><br>
+                    
+                    I must give this article a hard recommend. It shaped my thinking on this topic a lot. 
+                    The initial plan had quite a lot of overlap with <span style="color: #6ba6ff;">Docker</span>, RabbitMQ etc, 
+                    but in the end I did end up taking a lot of inspiration from the things Hakluke mentions. 
+                    <br><br>
+                    Thank you, and sorry for stealing! 
+                </p>
+
+                <h2> premise </h2>
+                <p>
+
+                    It is no surprise I, as many other aspiring hackers, have a "thing" for <span style="color: #6ba6ff;">bug bounty.</span> 
+                    Something about hacking away and getting paid for finding flaws is very appealing. 
+                    <span style="color: #2edf51">The problem?</span> As bug bounties rise in popularity, the low hanging fruit get picked faster and faster. 
+                    At the moment, if you're a mediocre pentester, or less, it can be very time consuming to actually create any income from bug bounty programs. 
+                    You need to sink in a lot of time into a specific program, with no quarantee of returns.
+                    <br><br>
+
+                    Lazy as I am, I of course want to do <i>as little</i> as possible. 
+                    I had been kinda itching for a big project for a while now, 
+                    and when my friend <span style="color: #ff8622">2ourc3</span> mentioned we could try to <span style="color: #E24C27">automate 
+                    Android Application testing</span>, I was baited and hooked. 
+                    Automating vulnerability research at a scale? Yeah, I could learn how to do that..
+
+                    <img style="user-select: none;" src="/article/img/batman-begins.png" width="50%">
+                
+                </p>
+                <h2> queue, adding tasks, getting tasks </h2>
+                <p>
+                    So, to actually create an automagical solution, 
+                    you need things to happen <span style="color: #F0E15A">automatically</span>. 
+                    <br>
+                    For this, we need a "job queue." We need to be able to list a target, and then have a <span style="color: #E24C27">worker</span> automatically start working on it. 
+                    It would be ideal to have the <span style="color: #6ba6ff;">bug bounty</span> scopes be scraped and put into queue automatically.
+                    Being first to the scene is a somewhat relevant competitive edge, but that we can leave for later. 
+                    Right now we add <span style="color: #F0E15A">scopes</span> into the queue manually through <span style="color: #bf7bff;">discord</span>:</p>
+                    
+                    <img style="user-select: none;" src="/article/img/bird_feeder.png" width="50%">
+
+                    As a sidenote, 
+                    having a bot you can message, that then throws a target into the queue to be "hacked", 
+                    is like a skids dream come true. Having a working demo of this working made me feel like a kid in a candy store.
+                
+                
+                    We can very simply divide all the tasks into category by <span style="color: #6ba6ff;">scope type.</span>
+                    <span style="color: #F0E15A">Domains</span> go to different workers than, say, <span style="color: #E24C27">android applications</span>. 
+                    For Queueuing, we use <span style="color: #2edf51">RabbitMQ</span>. It's easy to specify which Q's the targets go into, and it's easy to go fetch them there. 
+                    
+                    <img style="user-select: none;" src="/article/img/queue_up.png" width="50%">
+
+                    As the workers need to be able to work on given targets, 
+                    they have to fetch them from their appropriate queues. 
+                    Once a task is taken, it gets removed from the Queue to not be assigned for another <span style="color: #E24C27">worker</span>. 
+                    This is quite straight forward.
+
+                    <img style="user-select: none;" src="/article/img/act_on_it.png" width="50%">
+
+                    The architechture at this point looks somewhat like this:
+
+                    <img style="user-select: none;" src="/article/img/illustration_of_arch.png" width="50%">
+
+                </p>
+                <h2> building the scanners </h2>
+                <p>
+                    Ok, now the <span style="color: #E24C27">workers</span> can fetch tasks from the <span style="color: #2edf51">Queue</span>. Now what? <br>
+                    The meat of the project. How do we automate vulnerability testing & research? 
+                    We can either write our own tools, or use ready made ones. The simplest approach is to take the road already paved.
+                    <br><br>
+                    Let's only focus on web & domain based vulnerability discovery now. We can use ready made tools like <span style="color: #F0E15A">Subfinder</span>, <span style="color: #2edf51">Nuclei</span> & <span style="color: #ff8622">Feroxbuster</span>.
+                    Why these tools?
+                    <ul>
+                        <li> * <span style="color: #F0E15A">Subfinder</span>: if wildcard is in scope with domains, we can use subfinder to enum more subdomains. This will increase the "attack" surface </li>
+                        <li> * <span style="color: #2edf51">Nuclei</span>: my go-to tool for vulnerability scanning is Nuclei. It has a myriad of templates for content-, CVE-, and technology discovery. Its output is also easily pipeable and refinable.</span> </li>
+                        <li> * <span style="color: #ff8622">Feroxbuster</span>: the fastest crawler for directory & content discovery there is. Coupled with good wordlists, this tool makes webserver fuzzing a breeze. </li>
+                    </ul>
+                    In the future I'll likely be looking to implement more tools, like <span style="color: #2edf51">nmap</span> for discovering webservers, <span style="color: #6ba6ff;">owasp zap</span> for crawling & other similiar tools. <br><br>
+                    To be able to run the workers where and when ever we want to, it's best to use <span style="color: #6ba6ff;">Docker</span>. This way there is no compatibility issues, 
+                    and we can scale the containers horizontally if need be.
+
+                    Instead of being sensible and using a premade image, like Kali, I'm going to go the path of creating my own.
+
+                    <img style="user-select: none;" src="/article/img/dock_up.png" width="50%">
+
+                    Then we can create wrappers for each installed tool.  
+
+                    <img style="user-select: none;" src="/article/img/run_tool.png" width="50%">
+
+                    I decided it'd be best to write each wrapper as their own <span style="color: #E24C27">module</span>, and then call the main function with the parameters.
+                    As an example let's look at <span style="color: #ff8622">Feroxbusters</span> wrapper. We want to run the command against the specified domain or target,
+                    and have the output be stored into a file. All the tool outputs go into the <span style="color: #6ba6ff;">./temp folder</span>, from which they can be sent
+                    onwards later. All in all the wrappers look like this:
+
+                    <img style="user-select: none;" src="/article/img/ferox_wrapper.png" width="50%">
+                    
+                    After the results are in from all of the tools, we <span style="color: #F0E15A">zip</span> up the <span style="color: #6ba6ff;">./temp folder</span>. 
+                    For now, we use <span style="color: #bf7bff;">Discord webhooks</span> and <span style="color: #bf7bff;">Discord</span> as the <span style="color: #ff8622">CDN</span>. <span style="color: #E24C27">This is bad,</span> because  when we scan an assortment of domains, we get quite a few <span style="color: #F0E15A">.zip</span> folders, each of which you now have to manually download via the client. 
+                    If you wanted to grep all the results for <span style="color: #F0E15A">.git</span> exposure for example, you'd first have to download all of the files, 
+                    unzip them, and then run the grep. <span style="color: #E24C27">Worksome.</span> This leads us to,
+                    <br><br>
+                    <strong> <i>the actual problem...</i> </strong>
+                </p>
+                
+                <h2> too many beads in the jar </h2>
+
+                <p> 
+                    It's hard to parse through the abundant <span style="color: #2edf51">data.</span> 
+                    It's very, very easy to create <span style="color: #2edf51">data</span>  with testing applications. 
+                    It's much harder to actually make meaningful data, and then <span style="color: #ff7bf4;">cherry pick</span> the bits that in this context are useful. 
+                    You can think about data as a jar where we can pour beads into. 
+                    It's very easy to fill the jar with all kinds of beads. But if we want to make friendship bracelets specifically consisting of <span style="color: #ff7bf4;">pink beads,</span> 
+                    we need to be able to <span style="color: #6ba6ff;">sieve through the jar efficiently.</span> 
+                    In an ideal world, we would be able to simply buy the right coloured beads, but as we're trying to automate the process of getting the beads, it's more efficient to buy them in bulk and sieve them. 
+                    <br><br>
+
+                    As of now, we're simply producing <span style="color: #2edf51">data</span> and storing it into a <span style="color: #ff8622">CDN</span> like server. 
+                    The server has a storage space, and a <span style="color: #ff8622">database</span> to keep track of all the files we've produced. 
+                    In the database <span style="color: #6ba6ff;">we can attach meaningful metadata</span> to each file. 
+                    <ul>
+                        <li> * What scope does it belong to? </li> 
+                        <li> * When was it stored? </li> 
+                        <li> * Where is it stored? </li>
+                    </ul><br>
+                    Later it would be ideal to perhaps sieve through the data straight after the analysis process is done, and move the important bits into a <span style="color: #ff8622">database</span>. 
+                    This way, if we wanted to find out which <span style="color: #F0E15A">Scopes</span> use <span style="color: #E24C27">WordPress</span> for instance, we could simply query the <span style="color: #ff8622">db</span>. 
+                    Now we need to first open the jar, pick up the plastic bag containing the beads, open it and then check if it has the right coloured beads in it. 
+                    Unfortunately, this isn't in the scope (haha) of this article. I will write a part 2 to follow up on this, so keep your eyes out for it later! 
+                </p>
+                <h2></h2>
+                <p>Thanks for reading, and I hope you learned something! <br>
+                -Vs1m.</p>
+
+                </section>
+            </div>            
+        <footer>
+            <p>2022 - 2024 © Vsim. </p>
+        </footer>
+    </body>
+</html>
