@@ -129,27 +129,35 @@
                     
                     After the results are in from all of the tools, we <span style="color: #F0E15A">zip</span> up the <span style="color: #6ba6ff;">./temp folder</span>. 
                     For now, we use <span style="color: #bf7bff;">Discord webhooks</span> and <span style="color: #bf7bff;">Discord</span> as the <span style="color: #ff8622">CDN</span>. <span style="color: #E24C27">This is bad,</span> because  when we scan an assortment of domains, we get quite a few <span style="color: #F0E15A">.zip</span> folders, each of which you now have to manually download via the client. 
+                    
+                    <img style="user-select: none;" src="/article/img/results_dela_nuclei.png" width="50%">
+
+                    <br><br>
                     If you wanted to grep all the results for <span style="color: #F0E15A">.git</span> exposure for example, you'd first have to download all of the files, 
                     unzip them, and then run the grep. <span style="color: #E24C27">Worksome.</span> This leads us to,
                     <br><br>
-                    <strong> <i>the actual problem...</i> </strong>
+                    <strong> <i>the problem of...</i> </strong>
                 </p>
                 
                 <h2> too many beads in the jar </h2>
 
                 <p> 
                     It's hard to parse through the abundant <span style="color: #2edf51">data.</span> 
-                    It's very, very easy to create <span style="color: #2edf51">data</span>  with testing applications. 
-                    It's much harder to actually make meaningful data, and then <span style="color: #ff7bf4;">cherry pick</span> the bits that in this context are useful. 
-                    You can think about data as a jar where we can pour beads into. 
-                    It's very easy to fill the jar with all kinds of beads. But if we want to make friendship bracelets specifically consisting of <span style="color: #ff7bf4;">pink beads,</span> 
+                    It's very, very easy to create a lot of <span style="color: #2edf51">data</span>  when testing applications. 
+                    It's much harder to actually create meaningful data, and then <span style="color: #ff7bf4;">cherry pick</span> the bits that in this context are useful. 
+                    
+                    <br><br>
+                    You can think of <span style="color: #2edf51">data</span> as <span style="color: #2edf51">beads</span> that have been poured into a  <span style="color: #E24C27">jar</span>.
+                    It's very easy to fill the jar with all kinds of beads, but if we want to make friendship bracelets specifically consisting of <span style="color: #ff7bf4;">pink beads,</span> 
                     we need to be able to <span style="color: #6ba6ff;">sieve through the jar efficiently.</span> 
-                    In an ideal world, we would be able to simply buy the right coloured beads, but as we're trying to automate the process of getting the beads, it's more efficient to buy them in bulk and sieve them. 
+                    In an ideal world, we would be able to simply buy the right <span style="color: #F0E15A">coloured</span> beads, 
+                    but as we're trying to <span style="color: #E24C27">automate</span> the process of getting <span style="color: #2edf51">the beads</span>, 
+                    it's more efficient to buy them in <span style="color: #E24C27">bulk</span> and <span style="color: #6ba6ff;">sieve</span> them afterwards. 
                     <br><br>
 
                     As of now, we're simply producing <span style="color: #2edf51">data</span> and storing it into a <span style="color: #ff8622">CDN</span> like server. 
                     The server has a storage space, and a <span style="color: #ff8622">database</span> to keep track of all the files we've produced. 
-                    In the database <span style="color: #6ba6ff;">we can attach meaningful metadata</span> to each file. 
+                    In the database <span style="color: #6ba6ff;">we can attach meaningful metadata</span> to each file: 
                     <ul>
                         <li> * What scope does it belong to? </li> 
                         <li> * When was it stored? </li> 
@@ -158,7 +166,7 @@
                     Later it would be ideal to perhaps sieve through the data straight after the analysis process is done, and move the important bits into a <span style="color: #ff8622">database</span>. 
                     This way, if we wanted to find out which <span style="color: #F0E15A">Scopes</span> use <span style="color: #E24C27">WordPress</span> for instance, we could simply query the <span style="color: #ff8622">db</span>. 
                     Now we need to first open the jar, pick up the plastic bag containing the beads, open it and then check if it has the right coloured beads in it. 
-                    Unfortunately, this isn't in the scope (haha) of this article. I will write a part 2 to follow up on this, so keep your eyes out for it later! 
+                    Unfortunately, this isn't in the <span style="color: #F0E15A">scope</span> (haha) of this article. I will write a part 2 to follow up on this, so keep your eyes out for it later! 
                 </p>
                 <h2></h2>
                 <p>Thanks for reading, and I hope you learned something! <br>
